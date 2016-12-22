@@ -10,34 +10,43 @@ import bodyParser from 'koa-bodyparser';
 import session from 'koa-generic-session';
 import views from 'koa-views';
 
-import _ from './passport';
+/**
+ * 权限校验模块
+ */
 import passport from 'koa-passport';
+import passportInit from './passport';
 
 import log4js from 'log4js';
 
 export default function middleware(app) {
+  passportInit(passport);
+  app.proxy = true;
 
-    app.proxy = true;
+  log4js.configure({
+    appenders: [
+      {type: 'console'},
+      {
+        type: 'dateFile',
+        filename: __dirname + '/../tmp/boilerplate.log',
+        "pattern": "-yyyy-MM-dd-hh.log",
+        "alwaysIncludePattern": false,
+        category: 'file'
+      }
+    ],
+    replaceConsole: true
+  });
 
-    log4js.configure({
-        appenders: [
-            { type: 'console' },
-            { type: 'dateFile', filename: __dirname + '/../tmp/boilerplate.log' , "pattern":"-yyyy-MM-dd-hh.log","alwaysIncludePattern":false, category: 'file' }
-        ],
-        replaceConsole: true
-    });
+  app.use(cors({credentials: true}));
+  app.use(convert(Logger()));
+  app.use(bodyParser());
+  app.use(mount("/static", convert(Serve(__dirname + '/../public/'))));
 
-    app.use(cors({ credentials: true }));
-    app.use(convert(Logger()))
-    app.use(bodyParser())
-    app.use(mount("/static", convert(Serve(__dirname + '/../public/'))));
+  app.keys = ['secret'];
+  app.use(convert(session()));
 
-    app.keys = ['superalsrk-session-key'];
-    app.use(convert(session()))
+  app.use(passport.initialize());
+  app.use(passport.session());
 
-    app.use(passport.initialize())
-    app.use(passport.session())
-
-    app.use(views(__dirname + '/../views', {extension: 'swig'}))
+  app.use(views(__dirname + '/../views', {extension: 'swig'}))
 
 }
