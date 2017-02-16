@@ -1,0 +1,9 @@
+version: '2'
+services:
+  mongo:
+    image: mongo
+#    hostname: ${MONGO_HOST}
+#    container_name: ${MONGO_HOST}
+    volumes:
+      - ./data:/data/db
+      - ./etc/mongod.conf.orig:/etc/mongod.conf.orig

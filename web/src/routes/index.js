@@ -1,6 +1,6 @@
 'use strict';
 
-import config from '../../package.json';
+import config from '../../../package.json';
 import compose from 'koa-compose';
 import Router from 'koa-router';
 import Response from '../services/response';
