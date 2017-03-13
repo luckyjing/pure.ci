@@ -14,27 +14,12 @@ import views from 'koa-views';
  * 权限校验模块
  */
 import passport from 'koa-passport';
-import passportInit from './passport';
+// import passportInit from './passport';
 
-import log4js from 'log4js';
 
 export default function middleware(app) {
-  passportInit(passport);
+  // passportInit(passport);
   app.proxy = true;
-
-  log4js.configure({
-    appenders: [
-      {type: 'console'},
-      {
-        type: 'dateFile',
-        filename: __dirname + '/../tmp/boilerplate.log',
-        "pattern": "-yyyy-MM-dd-hh.log",
-        "alwaysIncludePattern": false,
-        category: 'file'
-      }
-    ],
-    replaceConsole: true
-  });
 
   app.use(cors({credentials: true}));
   app.use(convert(Logger()));

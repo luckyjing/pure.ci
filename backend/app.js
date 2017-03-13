@@ -1,8 +1,6 @@
 'use strict';
 
-import mongoServer from './lib/mongodb';
-mongoServer();
-
+import db from './lib/db';
 import Koa from 'koa';
 import baseconfig from './config/base';
 import middleware from './middleware';

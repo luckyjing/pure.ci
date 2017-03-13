@@ -1,7 +1,0 @@
-{
-  "sourceBase": "src/scripts",
-  "testBase": "tests",
-  "smartPath": "redux",
-  "dumbPath": "components",
-  "fileCasing": "default"
-}

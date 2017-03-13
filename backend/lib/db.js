@@ -7,9 +7,9 @@ const db = {}
 const mysqlPool  = mysql.createPool({
   connectionLimit : 10,
   host            : 'localhost',
-  user            : 'test',
-  password        : 'test',
-  database        : 'test'
+  user            : 'root',
+  password        : 'sujingxin',
+  database        : 'pureci'
 });
 
 db.pool = mysqlPool;
