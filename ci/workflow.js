@@ -32,15 +32,15 @@ export default class WorkFlow {
     return JSON.stringify(this.taskList);
   }
 
-  async run() {
+  async run(ctx) {
     // 生成任务链数组，每个数组里是一个async Function
-    let runChain = this.taskList.map(task=> {
+    let runChain = this.taskList.map(task => {
       let detailTask = TaskManager.get(task.key);
       return new detailTask(task.config);
     });
     for (let instance of runChain) {
       try {
-        await instance.run();
+        await instance.run(ctx);
       } catch (taskName) {
         throw taskName;
       }

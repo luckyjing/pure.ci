@@ -37,8 +37,8 @@ export default function TaskFactory(config) {
       super(config);
     }
 
-    context() {
-      return config.context.bind(this)();
+    async context(ctx) {
+      return config.context.bind(this)(ctx);
     }
 
     fail() {
@@ -46,9 +46,12 @@ export default function TaskFactory(config) {
       throw detailTask.taskName;
     }
 
-    async run() {
+    async run(ctx) {
+      console.log(`--- [Start]${config.name}  ---`)
       this.start();
-      return this.context();
+      await this.context(ctx);
+      console.log(`--- [Finish]${config.name} ---`)
+
     }
   };
   detailTask.key = config.key || "";

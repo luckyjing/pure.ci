@@ -21,7 +21,8 @@ export default {
   config: {
     /* default config */
   },
-  async context(){
+  async context(ctx){
+    console.log(ctx.projectName);
     try {
       await exec(this.config.task);
     }
