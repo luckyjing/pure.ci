@@ -10,8 +10,8 @@ export default class Job {
   async run() {
     try {
       await this.workFlow.run(this.ctx);
-    } catch (taskName) {
-      console.log(`Job失败，在执行 ${taskName} 时`);
+    } catch (e) {
+      console.log(e);
     }
   }
 }

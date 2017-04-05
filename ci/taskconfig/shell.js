@@ -26,7 +26,7 @@ export default {
       await exec(this.config.task);
     }
     catch (e) {
-      return this.fail();
+      return this.fail(e);
     }
     this.success();
   }

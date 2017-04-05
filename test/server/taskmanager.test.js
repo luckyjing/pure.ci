@@ -38,9 +38,10 @@ test('Task # getStatus', async t => {
 test.only('Job # run', async t => {
   let workflow = new WorkFlow();
   workflow.add('init', 1, { projectName: 'luckyjing/demo' });
-  workflow.add('shell', 3, { task: 'echo LuckyJing' });
+  workflow.add('shell', 2, { task: 'echo LuckyJing' });
   workflow.add('shell', 3, { task: 'docker pull nginx' });
-  workflow.add('sleep', 3, { name: 'Monkey' });
+  workflow.add('sleep', 4, { name: 'Monkey',duration:1000 });
   let job = new Job(workflow);
+  console.log(job.id)
   await job.run();
 });

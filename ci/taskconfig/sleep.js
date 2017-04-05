@@ -1,21 +1,21 @@
-let sleep = ()=> {
+let sleep = (duration)=> {
   return new Promise((resolve, reject)=> {
     setTimeout(()=> {
       resolve();
-    }, 3000)
+    }, duration)
   });
 };
 export default {
   key: 'sleep',
-  name: '睡觉',
+  name: '休眠',
   description: '好好休息',
   config: {
     /* default config */
+    duration:1000
   },
   async context(){
-    console.log(`[${this.config.name}]要睡觉啦`);
-    await sleep();
-    console.log(`[${this.config.name}]起床啦`);
+    await sleep(this.config.duration);
+    console.log(`已休眠 ${this.config.duration} ms`);
     this.success();
   }
 };

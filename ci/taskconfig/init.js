@@ -11,7 +11,7 @@ let init = (projectName) => {
 };
 export default {
   key: 'init',
-  name: '初始化任务',
+  name: '初始化',
   description: '分配工作空间',
   // context 里面的this将绑定到Task实例上，可以获取到Task类里的任何成员变量或方法，如this.success,this.fail,this.config
   async context(ctx) {
