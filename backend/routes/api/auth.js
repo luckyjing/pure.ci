@@ -2,8 +2,8 @@
 
 import Router from 'koa-router';
 import passport from 'koa-passport';
-import OAuthService from '../services/oauth';
-import Response from '../services/response';
+import OAuthService from '../../services/oauth';
+import Response from '../../services/response';
 const router = new Router();
 
 import mongoose from 'mongoose';

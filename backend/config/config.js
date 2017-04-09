@@ -18,16 +18,16 @@ let base = {
 let specific = {
   development: {
     app: {
-      port: 5000,
+      port: 9000,
       name: "pure-ci",
       excluded: "excluded_path"
     },
     mysql: {
       host: 'localhost',
       port: 3306,
-      user: 'test',
-      password: 'test',
-      database: 'test'
+      user: 'root',
+      password: 'sujingxin',
+      database: 'pureci'
     },
     mongodb: {
       host: 'mongodb://localhost/pureCI'
