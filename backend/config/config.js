@@ -18,7 +18,7 @@ let base = {
 let specific = {
   development: {
     app: {
-      port: 9000,
+      port: 8999,
       name: "pure-ci",
       excluded: "excluded_path"
     },

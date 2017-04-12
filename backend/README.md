@@ -1,0 +1,5 @@
+- services
+  - coding.js 封装了coding的openAPI，主要完成查询信息，增加webhook
+  - oauth.js 封装了接入oauth的过程，暴露codingOauth类
+  - response.js 封装了响应类
+  - task

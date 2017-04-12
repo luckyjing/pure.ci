@@ -6,8 +6,12 @@
   <title>Pure</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
-  <link rel="stylesheet" href="/static/css/common.css">
-  <script type="text/javascript" src="//g.alicdn.com/??aliyun/dblx/0.0.14/react.min.js,aliyun/dblx/0.0.14/react-dom.min.js,aliyun/dblx/0.0.14/redux.min.js,aliyun/dblx/0.0.14/react-redux.min.js"></script>
+  <link rel="stylesheet" href="/static/index.css">
+  <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+  <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+  <script src="https://cdn.bootcss.com/redux/3.6.0/redux.min.js"></script>
+  <script src="https://cdn.bootcss.com/react-redux/5.0.3/react-redux.min.js"></script>
+  <script src="https://cdn.bootcss.com/babel-polyfill/7.0.0-alpha.3/polyfill.min.js"></script>
 </head>
 
 <body>
@@ -23,9 +27,8 @@
       API_PREFIX:''
     }
   </script>
-  <script src="/static/scripts/common.js"></script>
-  <script src="/static/scripts/index.js"></script>
-
+  <script src="/static/vendor.js"></script>
+  <script src="/static/index.js"></script>
 </body>
 
 </html>

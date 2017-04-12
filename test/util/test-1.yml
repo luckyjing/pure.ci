@@ -1,0 +1,11 @@
+stages:
+  - test
+  - build
+  - deploy
+test_api:
+  env:
+    - password=admin
+  image: 'ubuntu:16.04'
+  script:
+    - echo hello
+  stage: test
