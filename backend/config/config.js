@@ -12,7 +12,8 @@ let base = {
   coding: {
     clientId: 'eb1f4fffdad9ebae384f83e1de7ba4d7',
     clientSecret: '4a67850a25c1e4c36b757da8de73fe6f420435aa'
-  }
+  },
+  workspace: path.join(__dirname, '../../workspace')
 };
 
 let specific = {

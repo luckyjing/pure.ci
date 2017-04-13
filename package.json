@@ -41,6 +41,7 @@
     "koa-views": "^5.0.2",
     "lodash": "^4.14.1",
     "log4js": "^0.6.38",
+    "mitt": "^1.1.0",
     "moment": "^2.17.1",
     "mongoose": "^4.7.4",
     "mysql": "^2.11.1",
@@ -50,6 +51,8 @@
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
     "shell-task": "^1.0.0",
+    "shify": "^0.1.4",
+    "shortid": "^2.2.8",
     "swig": "^1.4.2",
     "underscore": "^1.8.3"
   },

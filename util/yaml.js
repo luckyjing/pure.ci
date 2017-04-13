@@ -8,6 +8,6 @@ export function toYaml(content){
   'styles': {
     '!!null': 'canonical' // dump null as ~
   },
-  'sortKeys': true        // sort object keys
+  'sortKeys': false        // sort object keys
 })
 }

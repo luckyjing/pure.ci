@@ -7,8 +7,8 @@ let sleep = (duration)=> {
 };
 export default {
   key: 'sleep',
-  name: '休眠',
-  description: '好好休息',
+  taskName: '休眠',
+  desc: '好好休息',
   config: {
     /* default config */
     duration:1000

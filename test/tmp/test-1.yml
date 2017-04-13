@@ -3,9 +3,9 @@ stages:
   - build
   - deploy
 test_api:
+  stage: test
+  image: 'ubuntu:16.04'
   env:
     - password=admin
-  image: 'ubuntu:16.04'
   script:
     - echo hello
-  stage: test

@@ -16,14 +16,14 @@ let exec = (task) => {
 };
 export default {
   key: 'shell',
-  name: '执行Shell命令',
-  description: '',
+  taskName: '执行Shell命令',
+  desc: '在一个Docker镜像里面执行',
   config: {
     /* default config */
   },
   async context(ctx) {
     try {
-      await exec(this.config.task);
+      await exec(this.config.script[0]);
     }
     catch (e) {
       return this.fail(e);

@@ -2,7 +2,7 @@ import HttpCode from '../config/httpCode';
 
 export default class Response {
   /**
-   * @param code {Number} 200|xxx  HTTP响应码
+   * @param code {HttpCode} HTTP响应码
    * @param options {String|Object} 当code为200时，options为Object，否则为String，表明错误信息
    */
   /**

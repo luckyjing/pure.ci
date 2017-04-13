@@ -1,5 +1,8 @@
 import { spawn } from 'child_process';
-
+import fs from 'fs';
+import os from 'os';
+import uuid from './uuid';
+import path from 'path';
 /**
  * 执行一段 Shell 脚本
  * @param {string} source 脚本源码
@@ -7,8 +10,13 @@ import { spawn } from 'child_process';
  * @param {string} cwd 执行目录
  * @example shell('echo',['hello world'])
  **/
-export default async function (source, params, cwd = undefined) {
-  let shell = spawn(source, params, {
+export default async function (shellArray, params, cwd = undefined) {
+  // 创建一份临时的脚本文件  
+  let filename = uuid();
+  let filepath = path.join(__dirname, `./${filename}`);
+  fs.writeFileSync(filepath, ['#!/bin/bash', '', ...shellArray].join(os.EOL));
+  fs.chmodSync(filepath, '777');
+  let shell = spawn(filepath, params, {
     cwd
   });
   /**
@@ -32,7 +40,9 @@ export default async function (source, params, cwd = undefined) {
     })
     // 进程结束[各种情况都会进入]
     shell.on('close', (code) => {
-      log.push(`[结束]状态码：${code}`)
+      log.push(`[结束]状态码：${code}`);
+      // 结束后将此临时文件删除
+      fs.unlink(filepath);
       if (code == 0) {
         resolve(log.join(''));
       } else {

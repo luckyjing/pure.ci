@@ -50,20 +50,21 @@ export default function TaskFactory(config) {
     }
 
     async run(ctx) {
-      console.log(chalk.blue.bold('[Start]') + ` ${config.name}`);
+      ctx.log(chalk.blue.bold('[Start Task]') + ` ${this.name}`);
       this.start();
       try {
         await this.context(ctx);
-        console.log(chalk.green.bold('[Finish]') + ` ${config.name}`);
+        ctx.log(chalk.green.bold('[Finish Task]') + ` ${this.name}`);
       } catch (e) {
-        console.log(chalk.red.bold('[Error]') + ` ${config.name}`);
+        ctx.log(e);
+        ctx.log(chalk.red.bold('[Error Task]') + ` ${this.name}`);
         throw e;
       }
 
     }
   };
   detailTask.key = config.key || "";
-  detailTask.taskName = config.name || "";
-  detailTask.description = config.description || "";
+  detailTask.taskName = config.taskName || "";
+  detailTask.desc = config.desc || "";
   return detailTask;
 }
