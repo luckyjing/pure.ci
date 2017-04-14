@@ -30,6 +30,13 @@ export default class ProjectOrm {
       throw e;
     }
   }
+  static async updateJob(job_id, workflow, status, duration) {
+    try {
+      return db.query('UPDATE job SET workflow = ? ,status = ?,duration = ? WHERE id = ?', [workflow, status, duration, job_id]);
+    } catch (error) {
+      throw error;
+    }
+  }
   static async createJob(job_id, workflow, project_id, commit_msg, branch, status) {
     let params = {
       id: job_id,

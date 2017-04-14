@@ -3,14 +3,14 @@ stages:
   - build
   - deploy
 shell2:
-  index: 0
+  index: 1
   stage: test
   type: shell
   config:
     script: 
-      - echo hello test0
+      - sleep 10000
 shell0:
-  index: 1
+  index: 0
   stage: test
   type: shell
   config:

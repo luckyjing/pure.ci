@@ -62,8 +62,22 @@ export default class ProjectServices {
     let cwd = getCwd(user_id, project_name);
     // 创建新的Job
     let job = new Job(cwd, workflow);
+    // 构建成功后，更新数据库
+    job.onFinish = () => {
+      projectOrm.updateJob(job_id, job.workFlow.saveConfig(), job.getStatus(), job.getDuration());
+      // 从缓存中删去
+      delete runningProjectMap[job_id];
+    };
+    // 缓存此Job
+    runningProjectMap[job.id] = job;
     // 写入数据库
     await projectOrm.createJob(job.id, job.workFlow.saveConfig(), project_id, commit_msg, branch, job.status);
+  }
+  /**
+   * TODO: 更新一个项目的workflow，状态，持续时间
+   */
+  static async updateJob(job_id, workflow, status, duration) {
+    await projectOrm.updateJob(job_id, workflow, status, duration);
   }
   /**
    * TODO: 获取项目列表

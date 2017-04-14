@@ -46,6 +46,11 @@ export async function addWorkFlow(ctx, next) {
 
   }
 }
+export async function createJob(ctx, next) {
+  let project_id = this.params.project_id;
+  
+  Project.start();
+}
 export async function jobList(ctx, next) {
 
 }

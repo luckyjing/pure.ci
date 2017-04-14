@@ -25,9 +25,9 @@ let specific = {
     },
     mysql: {
       host: 'localhost',
-      port: 3306,
+      port: 4000,
       user: 'root',
-      password: 'sujingxin',
+      password: '1234',
       database: 'pureci'
     },
     mongodb: {
