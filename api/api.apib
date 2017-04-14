@@ -1,0 +1,105 @@
+FORMAT: 1A
+HOST: http://localhost:8998
+
+# Pure 持续集成平台 API文档
+
+本套平台的接口全面采用`RESTful`规范，请先阅读一些规范。
+
+> 参考资料：https://blog.igevin.info/posts/restful-api-get-started-to-write/
+
+## Request 和 Response
+
+`RESTful API`的开发和使用，无非是客户端向服务器发请求（`request`），以及服务器对客户端请求的响应（`response`）。`RESTful`架构风格具有统一接口的特点，即使用不同的http方法表达不同的行为：
+
+- `GET（SELECT）`：从服务器取出资源（一项或多项）
+- `POST（CREATE）`：在服务器新建一个资源
+- `PUT（UPDATE）`：在服务器更新资源（客户端提供完整资源数据）
+- `PATCH（UPDATE）`：在服务器更新资源（客户端提供需要修改的资源数据）
+- `DELETE（DELETE）`：从服务器删除资源
+
+# Data Structures
+
+## NoteData
++ id: 1 (required, number) - Unique identifier
++ title: Grocery list (required) - Single line description
++ body: Buy milk - Full description of the note which supports Markdown.
+
+## NoteList (array)
++ (NoteData)
+
+# Group 持续集成子系统相关的资源
+
+
+## 项目 [/project]
+
+:yum:用户在平台创建一个项目，此项目会关联一个`Git`仓库，所有持续集成的活动都隶属于某一个项目。
+
+
+### 获取所有项目 [GET]
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "code":"200",
+                "data":[
+                    "id":"SJjotZ6Te",
+                    "name":"我的持续集成项目名称",
+                    "repository_url":"https://coding.net/u/luckyjing/p/pure-ci",
+                    "repository_name":"pure-ci",
+                    "workflow":"yaml file"
+                ]
+            }
+
+### 创建新项目 [POST]
+创建一项新项目，创建的以`JSON`格式存放到`body`里
+
++ Request 携带body (application/json)
+
+    + Body
+
+            {
+                "name": "项目名",
+                "repository_url": "关联的仓库URL",
+                "repository_name":"仓库名称"
+            }
+
++ Response 201 (application/json)
+    + Body  
+
+            {
+                "code":200
+            }
+
++ Response 400 (application/json)
+    + Body
+
+            {
+                "code": "MISSING_PARAM"
+            }
+
+## 一个项目 [/project/{id}]
+传入参数`项目id`来获取本项目的基本信息
+
++ Parameters
+
+    + id: SJjotZ6Te(string) - 项目的唯一标识
+
+### 获取一个项目[GET]
+
++ Response 200 (application/json)
+    
+    + Body
+
+            {
+                {
+                    "cdoe":"200",
+                    "data":{
+                        "id":"SJjotZ6Te",
+                        "name":"我的持续集成项目",
+                        "repository_url":"http://coding.net/abc",
+                        "respository_name":"pure-ci",
+                        "workflow":"yaml content"
+                    }
+                }
+            }
