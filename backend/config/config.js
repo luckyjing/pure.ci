@@ -25,13 +25,10 @@ let specific = {
     },
     mysql: {
       host: 'localhost',
-      port: 4000,
+      port: 3306,
       user: 'root',
-      password: '1234',
+      password: 'sujingxin',
       database: 'pureci'
-    },
-    mongodb: {
-      host: 'mongodb://localhost/pureCI'
     }
   },
   production: {

@@ -27,12 +27,44 @@ HOST: http://localhost:8998
 ## NoteList (array)
 + (NoteData)
 
-# Group 持续集成子系统相关的资源
+# 用户体系
+
+## 会话 [/session]
+
+### 登录 [POST]
+
++ Request (application/json)
+    + Body
+            {
+                "email":"649008270@qq.com",
+                "password":"xxx"
+            }
++ Response 200 (application/json)
+    + Body
+            {
+                "code":"200"
+            }            
++ Response 401 (application/json)
+    + Body
+            {
+                "code":"unauthorized",
+                "msg":"Incorrect password"
+            }
+
+### 注销 [DELETE]
+
++ Response 302 (application/json)
+    + Body
+            {
+                "code":"200"
+            }
+
+# 持续集成子系统相关的资源
 
 
 ## 项目 [/project]
 
-:yum:用户在平台创建一个项目，此项目会关联一个`Git`仓库，所有持续集成的活动都隶属于某一个项目。
+用户在平台创建一个项目，此项目会关联一个`Git`仓库，所有持续集成的活动都隶属于某一个项目。
 
 
 ### 获取所有项目 [GET]

@@ -10,25 +10,22 @@ import bodyParser from 'koa-bodyparser';
 import session from 'koa-generic-session';
 import views from 'koa-views';
 import path from 'path';
-/**
- * 权限校验模块
- */
 import passport from 'koa-passport';
-// import passportInit from './passport';
+import auth from './auth';
 
 
-export default function middleware(app) {
-  // passportInit(passport);
+export default function (app) {
+
+  app.keys = ['secret'];
   app.proxy = true;
-
   app.use(convert(cors()));
   app.use(convert(Logger()));
   app.use(bodyParser());
   app.use(convert(Serve(path.join(__dirname, '../public'))));
-
-  app.keys = ['secret'];
   app.use(convert(session()));
 
+  //auth
+  auth();
   app.use(passport.initialize());
   app.use(passport.session());
 

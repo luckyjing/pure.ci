@@ -2,7 +2,7 @@
 
 import db from './lib/db';
 import Koa from 'koa';
-import appConfig from './config/appConfig';
+import koaconfig from './config/koaconfig';
 import middleware from './middleware';
 import routes from './routes';
 import config from './config/config';
@@ -13,7 +13,7 @@ const LOG = log4js.getLogger('file');
 
 
 //configure basic app
-appConfig(app);
+koaconfig(app);
 
 //configure custom middleware
 app.use(middleware());
