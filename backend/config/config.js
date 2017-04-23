@@ -11,7 +11,8 @@ let base = {
   },
   coding: {
     clientId: 'eb1f4fffdad9ebae384f83e1de7ba4d7',
-    clientSecret: '4a67850a25c1e4c36b757da8de73fe6f420435aa'
+    clientSecret: '4a67850a25c1e4c36b757da8de73fe6f420435aa',
+    redirect_uri: "http://localhost:8999/api/auth/coding"
   },
   workspace: path.join(__dirname, '../../workspace')
 };
@@ -21,7 +22,7 @@ let specific = {
     app: {
       port: 8999,
       name: "pure-ci",
-      excluded: "excluded_path"
+      excluded: "excluded_path",
     },
     mysql: {
       host: 'localhost',

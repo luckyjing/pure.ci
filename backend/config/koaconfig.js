@@ -20,7 +20,11 @@ export default function (app) {
   app.proxy = true;
   app.use(convert(cors()));
   app.use(convert(Logger()));
-  app.use(bodyParser());
+  app.use(bodyParser({
+    onerror: function (err, ctx) {
+      ctx.throw('body parse error', 422);
+    }
+  }));
   app.use(convert(Serve(path.join(__dirname, '../public'))));
   app.use(convert(session()));
 

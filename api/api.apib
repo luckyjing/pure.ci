@@ -27,25 +27,33 @@ HOST: http://localhost:8998
 ## NoteList (array)
 + (NoteData)
 
-# 用户体系
+# Group 用户体系
 
 ## 会话 [/session]
 
 ### 登录 [POST]
 
+登录
+
 + Request (application/json)
+    
     + Body
+
             {
                 "email":"649008270@qq.com",
                 "password":"xxx"
             }
 + Response 200 (application/json)
+    
     + Body
+
             {
                 "code":"200"
             }            
 + Response 401 (application/json)
+    
     + Body
+
             {
                 "code":"unauthorized",
                 "msg":"Incorrect password"
@@ -53,16 +61,65 @@ HOST: http://localhost:8998
 
 ### 注销 [DELETE]
 
+`/logout` 注销成功后，将会重定向到登录页
+
 + Response 302 (application/json)
+    
     + Body
+    
             {
                 "code":"200"
             }
 
-# 持续集成子系统相关的资源
+## 用户 [/user/{id}]
+
+### 注册 [POST]
+
++ Request (application/json)
+    + Body
+
+            {
+                "nickname":"LuckyJing",
+                "email":"649008270@qq.com",
+                "passowrd":"123456"
+            }
+
++ Response (application/json)
+    + Body
+
+            {
+                "code":"200"
+            }
+### 获取个人信息 [GET]
+
+绑定了什么仓库，那么这个仓库将会返回一个对象结构，否则就是默认值`null`
+
++ Response 200 (application/json)
+    
+    + Body
+
+            {
+                {
+                    "cdoe":"200",
+                    "data":{
+                        "id":"SJjotZ6Te",
+                        "nickname":"昵称",
+                        "email":"email",
+                        "logo":"logo",
+                        "client_id":"client_id",
+                        "redirect_uri":"redirect_uri",
+                        "coding":{
+                                "name":"name",
+                                "logo":"logo"
+                        }
+                    }
+                }
+            }
+
+# Group 持续集成子系统相关的资源
 
 
-## 项目 [/project]
+## 项目 [/project/{id}]
 
 用户在平台创建一个项目，此项目会关联一个`Git`仓库，所有持续集成的活动都隶属于某一个项目。
 
@@ -110,14 +167,11 @@ HOST: http://localhost:8998
                 "code": "MISSING_PARAM"
             }
 
-## 一个项目 [/project/{id}]
-传入参数`项目id`来获取本项目的基本信息
+### 获取一个项目[GET]
 
 + Parameters
 
     + id: SJjotZ6Te(string) - 项目的唯一标识
-
-### 获取一个项目[GET]
 
 + Response 200 (application/json)
     
@@ -133,5 +187,21 @@ HOST: http://localhost:8998
                         "respository_name":"pure-ci",
                         "workflow":"yaml content"
                     }
+                }
+            }
+
+### 更改一个项目[PUT]
+
++ Parameters
+
+    + id: SJjotZ6Te(string) - 项目的唯一标识
+
++ Response 200 (application/json)
+    
+    + Body
+
+            {
+                {
+                    "cdoe":"200"
                 }
             }

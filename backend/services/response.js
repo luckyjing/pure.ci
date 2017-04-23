@@ -15,7 +15,7 @@ export default class Response {
     if (code == HttpCode.SUCCESS) {
       this.data = options;
     } else {
-      this.errMessage = options;
+      this.msg = options;
     }
   }
 }

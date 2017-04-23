@@ -7,19 +7,18 @@ import { Strategy } from 'passport-local';
 import UserOrm from '../services/orm/user';
 
 export default function () {
-  passport.use(new Strategy(async function (email, password, done) {
+  passport.use(new Strategy({
+    usernameField: 'email'
+  }, async function (email, password, done) {
     try {
       let user = await UserOrm.findOne(email);
       if (!user) {
-        return done(null, false, {
-          message: 'Incorrect user'
-        });
+        return done(null, false, '邮箱不正确');
       }
-      if (!user.password == password) {
-        return done(null, false, {
-          message: 'Incorrect password'
-        })
+      if (UserOrm.hashPassword(password) != user.password) {
+        return done(null, false, '密码不正确')
       }
+      delete user.password;
       return done(null, user);
     } catch (err) {
       return done(err);
@@ -39,7 +38,7 @@ export default function () {
    */
   passport.deserializeUser(async function (id, done) {
     try {
-      let user = await UserOrm.findOne(email);
+      let user = await UserOrm.findOneById(id);
       done(null, user);
     } catch (error) {
       done(error);

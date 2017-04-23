@@ -6,7 +6,6 @@
   <title>Pure</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
-  <link rel="stylesheet" href="/static/index.css">
   <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
   <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
   <script src="https://cdn.bootcss.com/redux/3.6.0/redux.min.js"></script>
@@ -16,19 +15,11 @@
 
 <body>
   <div id="stage"></div>
-  {% if env == 'development' %}
-   
-  {% else %}
-
-  {% endif %}
-
-  <script>
+ <script>
     var PURE_CI_CONFIG={
       API_PREFIX:''
     }
   </script>
-  <script src="/static/vendor.js"></script>
-  <script src="/static/index.js"></script>
-</body>
+<script type="text/javascript" src="/vendor.js"></script><script type="text/javascript" src="/login/index.js"></script></body>
 
 </html>

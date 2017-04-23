@@ -7,15 +7,34 @@ import sessionRouter from './session';
 import userRouter from './user';
 const router = new Router();
 
-async function renderIndex(ctx, next) {
-  await ctx.render('./main', { port: config.port.devServer, env: process.env.NODE_ENV })
+/**
+ * 注入到页面里的变量
+ */
+const renderParams = {
+  port: config.port.devServer,
+  env: process.env.NODE_ENV
 }
-router.get('/', renderIndex);
+
+router.get('/', async (ctx, next) => {
+  await ctx.render('./index', renderParams)
+});
+router.get('/login', async (ctx, next) => {
+  await ctx.render('./login', renderParams)
+});
+router.get('/signin', async (ctx, next) => {
+  await ctx.render('./signin', renderParams)
+});
+router.get('/logout', async (ctx, next) => {
+  ctx.logout()
+  ctx.redirect('/login');
+});
 router.use('/session', sessionRouter.routes(), sessionRouter.allowedMethods());
 router.use('/user', userRouter.routes(), userRouter.allowedMethods());
 router.use('/api', apiRouter.routes(), apiRouter.allowedMethods())
 
-router.get('*', renderIndex);
+router.get('*', async (ctx, next) => {
+  await ctx.render('./index', renderParams)
+});
 
 export default function routes() {
   return compose([

@@ -1,27 +1,12 @@
-'use strict';
-
 import Router from 'koa-router';
-import passport from 'koa-passport';
-import { CodingOAuth } from '../../services/oauth';
-import Response from '../../services/response';
-import HttpCode from '../../config/httpCode';
 
+import * as CodingController from '../../controller/codingController';
 const router = new Router();
 /**
  * OAuth 绑定仓库
+ * 授权成功后的回调地址，从接口中获取code，根据
+ * 这个code去获取access_token 和 refresh_token,expires_in
  */
-router.get('/coding', async (ctx, next) => {
-  let query = ctx.query;
-  if (!query.code) {
-    return ctx.body = new Response(HttpCode.MISSING_PARAM);
-  }
-  try {
-    let access_token = await CodingOAuth.fetchAccessToken(query.code);
-    // TODO: 存储到数据库里去
-    ctx.redirect('/');
-  } catch (e) {
-
-  }
-});
+router.get('/coding', CodingController.bind);
 
 export default router;
