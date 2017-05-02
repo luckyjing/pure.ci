@@ -8,6 +8,13 @@ export default class ProjectOrm {
       throw error;
     }
   }
+  static async jobList(project_id) {
+    try {
+      return db.query('SELECT * from job WHERE project_id =?', [project_id]);
+    } catch (error) {
+      throw error;
+    }
+  }
   static async createProject(id, name, repository_url, repository_name, user_id) {
     try {
       const params = {
@@ -24,7 +31,8 @@ export default class ProjectOrm {
   }
   static async getProjectInfo(project_id, user_id) {
     try {
-      let data = await db.query('SELECT workflow,name FROM project WHERE id = ? AND user_id = ?', [project_id, user_id]);
+      console.log(project_id, user_id)
+      let data = await db.query('SELECT * FROM project WHERE id = ? AND user_id = ?', [project_id, user_id]);
       return data[0];
     } catch (error) {
       throw error;
@@ -57,6 +65,14 @@ export default class ProjectOrm {
       return db.query("INSERT INTO job SET ?", params);
     } catch (e) {
       throw e;
+    }
+  }
+  static async deleteProject(project_id) {
+    try {
+      await db.query('DELETE FROM job WHERE project_id = ?', [project_id]);
+      await db.query('DELETE FROM project WHERE id = ?', [project_id]);
+    } catch (error) {
+      throw error;
     }
   }
 }

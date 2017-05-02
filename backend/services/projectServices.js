@@ -1,14 +1,18 @@
 import projectOrm from './orm/project';
+import codingOrm from './orm/coding';
 import shell from '../../util/shell';
 import uuid from '../../util/uuid';
 import * as file from '../../util/file';
 import Job from '../../ci/job';
 import path from 'path';
 import fs from 'fs';
-import {workspace} from '../config/config';
+import {workspace, hook_url} from '../config/config';
 const runningProjectMap = {};
-function getCwd(user_id, project_name) {
-  return path.join(workspace, `${user_id}/${project_name}`);
+function getBaseWorkSpace(user_id) {
+  return path.join(workspace, `${user_id}`);
+}
+function getCwd(user_id, project_id) {
+  return path.join(workspace, `${user_id}/${project_id}`);
 }
 
 const defaultWorkflow = fs.readFileSync(path.join(__dirname, '../config/workflow.yml'));
@@ -25,9 +29,12 @@ export default class ProjectServices {
    * @param {*} repository_name 绑定的仓库名
    * @returns {string|*} projectId
    */
-  static async initProject(user_id, project_name, repository_url, repository_name) {
-    let project_id = uuid();
-    let space = `${user_id}/${project_name}`;
+  static async initProject(ctx, user_id, project_name, repository_url, repository_name) {
+    const project_id = uuid();
+    const space = `${user_id}/${project_id}`;
+    // 增加WebHook
+    const {access_token, coding_name} = ctx.state.user;
+    await codingOrm.addWebHook(access_token, coding_name, repository_name, hook_url);
     // 创建项目文件夹
     await shell('mkdir', [
       '-p', space
@@ -35,7 +42,7 @@ export default class ProjectServices {
     // 创建日志目录
     await shell('mkdir', [
       '-p', 'log'
-    ], getCwd(user_id, project_name));
+    ], getCwd(user_id, project_id));
     // 写入数据库
     await projectOrm.createProject(project_id, project_name, repository_url, repository_name, user_id);
     // 增加workflow
@@ -52,27 +59,35 @@ export default class ProjectServices {
   }
   /**
    * TODO: 开始一个新的作业
-   * @param {*} user_id 用户名称
-   * @param {string} project_id
+   * @param {*} user_id 用户id
+   * @param {string} project_id 项目id
+   * @param {string} workflow workflow
+   * @param {stirng} commit_msg 代码commit信息
+   * @param {string} branch 触发分支
    */
-  static async start(user_id, project_id, commit_msg, branch) {
-    // job Table id,workflow,project_id,commit_msg,start_time,branch,status,duration
-    let job_id = uuid();
-    // 获取项目基本信息
-    let {workflow, name: project_name} = await projectOrm.getProjectInfo(project_id, user_id);
-    let cwd = getCwd(user_id, project_name);
+  static async startJob(user_id, project_id, workflow, commit_msg, branch) {
+    console.log('-----启动一项新的作业------');
+    // 项目作业空间
+    const cwd = getCwd(user_id, project_id);
+    console.log(`项目作业空间初始化  ${cwd}`);
+
     // 创建新的Job
-    let job = new Job(cwd, workflow);
-    // 构建成功后，更新数据库
+    const job = new Job(cwd, workflow);
+    console.log('新作业实例化完成');
+
+    // 构建成功后，更新数据库，从缓存中删去
     job.onFinish = () => {
-      projectOrm.updateJob(job_id, job.workFlow.saveConfig(), job.getStatus(), job.getDuration());
-      // 从缓存中删去
-      delete runningProjectMap[job_id];
+      console.log(`作业完成，目前状态:${job.getStatus()},共耗时:${job.getDuration()}`)
+      projectOrm.updateJob(job.id, job.workFlow.saveConfig(), job.getStatus(), job.getDuration());
+      delete runningProjectMap[job.id];
     };
     // 缓存此Job
     runningProjectMap[job.id] = job;
-    // 写入数据库
+    // 将作业信息写入数据库
     await projectOrm.createJob(job.id, job.workFlow.saveConfig(), project_id, commit_msg, branch, job.status);
+    console.log(`作业信息已经写入数据库`);
+    // 启动作业
+    job.run();
   }
   /**
    * TODO: 更新一个项目的workflow，状态，持续时间
@@ -81,23 +96,31 @@ export default class ProjectServices {
     await projectOrm.updateJob(job_id, workflow, status, duration);
   }
   /**
-   * TODO: 获取项目列表
+   * 获取项目列表
    */
   static async projectList(user_id) {
     return projectOrm.list(user_id);
   }
   /**
-   * TODO: 获取一个项目的信息
-   * @param {*} user_id 用户名称
+   * 获取一个项目的信息
+   * @param {*} access_token
+   * @param {*} user_id 用户id
    * @param {string} project_id
    */
-  static async projectInfo(user_id, project_id) {}
+  static async projectInfo(coding_name, access_token, project_id, user_id) {
+    const projectInfo = await projectOrm.getProjectInfo(project_id, user_id);
+    const branches = await codingOrm.branches(coding_name, projectInfo.repository_name, access_token)
+    projectInfo.branches = branches.list;
+    return projectInfo;
+  }
+
   /**
-   * TODO: 获取一个项目的任务列表
-   * @param {*} user_id 用户名称
-   * @param {string} project_id
+   *  获取一个项目的任务列表
+   * @param {string} project_id 项目id
    */
-  static async jobList(user_id, project_id) {}
+  static async jobList(project_id) {
+    return projectOrm.jobList(project_id);
+  }
   /**
    * TODO: 获取一个项目一次作业的信息
    * @param {*} user_id
@@ -119,4 +142,19 @@ export default class ProjectServices {
    * @param {*} jobId
    */
   static async cancelJob(user_id, id, jobId) {}
+  /**
+   * 删除一个项目
+   */
+  static async deleteProject(user_id, project_id) {
+    console.log(`准备删除用户id为${user_id}的项目${project_id}`);
+    // 删除workspace
+    const workspace = getBaseWorkSpace(user_id);
+    console.log(`shell工作目录为${workspace}`);
+    await shell('rm', [
+      '-rf', project_id
+    ], workspace);
+    // 清空相关的Job和Project条目
+    await projectOrm.deleteProject(project_id);
+    console.log(`删除成功`);
+  }
 }

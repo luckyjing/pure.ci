@@ -9,8 +9,8 @@ const prefix = 'https://coding.net';
 
 export default class Coding {
   // 根据code表的id查找access_token
-  static async findTokenById(id){
-    let res = await db.query('SELECT access_token FROM code WHERE id = ?', [id]);
+  static async findTokenById(id) {
+    let res = await db.query('SELECT name,access_token FROM code WHERE id = ?', [id]);
     return res[0];
   }
   // 根据code表的id查找code信息
@@ -20,9 +20,9 @@ export default class Coding {
   }
   // 更新code表的token
   static async saveTokenById(code_id, access_token, refresh_token, expires_in) {
-    return db.query('UPDATE code SET access_token = ? , refresh_token = ? ,expires_in = ? WHERE id = ?', [
-      access_token, refresh_token, expires_in, code_id
-    ]);
+    return db.query('UPDATE code SET access_token = ? , refresh_token = ? ,expires_in = ? WHERE id = ' +
+        '?',
+    [access_token, refresh_token, expires_in, code_id]);
   }
   // 往code表里插入一条新的绑定信息
   static async createCode(user_id, access_token, refresh_token, expires_in) {
@@ -36,40 +36,48 @@ export default class Coding {
       refresh_token,
       expires_in
     }
-    console.log(params);
     await db.query('INSERT INTO code SET ?', params);
-    console.log('插入到code表里了')
     await db.query('UPDATE user SET coding_bind = ? WHERE id = ?', [params.id, user_id]);
-    console.log('插入到user表里了')
   }
   // 获取用户个人信息
   static async user(access_token) {
     return Coding._get('/api/account/current_user', access_token);
   }
   // 获取用户的项目列表
-  static async projects(access_token){
-    return Coding._get('/api/user/projects',access_token);
+  static async projects(access_token) {
+    return Coding._get('/api/user/projects', access_token);
   }
   // 获取用户某项目的webHook
   static async webHook(user_name, project_name) {
     return Coding._get(`/api/user/${user_name}/project/${project_name}/git/hooks`);
   }
-  // 为某项目增加webHook
-  static async addWebHook(options) {
-    let token = '';
-    let uri = `${prefix}/api/user/${options.user_name}/project/${options.project_name}/git/hook`
-    let res = await request({
+  // 获取某项目的分支列表
+  static async branches(user_name, project_name, access_token) {
+    return Coding._get(`/api/user/${user_name}/project/${project_name}/git/branches?page=1&pageSize=100`, access_token);
+  }
+  /**
+   * 为某项目增加webHook
+   * @param {string} access_token
+   * @param {string} user_name 用户名
+   * @param {string} project_name 项目名
+   * @param {string} hook_url webhook链接
+   */
+  static async addWebHook(access_token, user_name, project_name, hook_url) {
+    const uri = `${prefix}/api/user/${user_name}/project/${project_name}/git/hook`
+    const params = {
       method: 'POST',
       uri: uri,
       qs: {
-        access_token: token,
+        access_token: access_token
       },
       form: {
-        type_push:true,
-        type_mr_pr:true,
-        hook_url:options.hook_url
+        type_push: true,
+        type_mr_pr: true,
+        hook_url: hook_url
       }
-    });
+    };
+    console.log('addWebHook：', params)
+    const res = await request(params);
     return Coding.handleResponse(JSON.parse(res));
   }
   static async _get(api, access_token) {

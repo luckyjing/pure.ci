@@ -14,7 +14,8 @@ let base = {
     clientSecret: '4a67850a25c1e4c36b757da8de73fe6f420435aa',
     redirect_uri: "http://localhost:8999/api/auth/coding"
   },
-  workspace: path.join(__dirname, '../../workspace')
+  workspace: path.join(__dirname, '../../workspace'),
+  hook_url: 'http://sujing.xin'
 };
 
 let specific = {
@@ -22,7 +23,7 @@ let specific = {
     app: {
       port: 8999,
       name: "pure-ci",
-      excluded: "excluded_path",
+      excluded: "excluded_path"
     },
     mysql: {
       host: '127.0.0.1',
@@ -45,7 +46,7 @@ let specific = {
       password: 'test',
       database: 'test'
     }
-  },
+  }
 };
 
 module.exports = _.merge(base, specific[env]);

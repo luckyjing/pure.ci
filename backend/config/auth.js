@@ -2,7 +2,7 @@
  * 配置Passport.js策略——用户名密码策略
  */
 import passport from 'passport';
-import { Strategy } from 'passport-local';
+import {Strategy} from 'passport-local';
 
 import UserOrm from '../services/orm/user';
 import CodingOrm from '../services/orm/coding';
@@ -25,7 +25,6 @@ export default function () {
     }
   }));
 
-
   /**
    * 将用户信息存储到会话里
    * 这里仅仅将id存入，确保session足够小
@@ -42,6 +41,7 @@ export default function () {
       if (userinfo.coding_bind) {
         let codingInfo = await CodingOrm.findTokenById(userinfo.coding_bind);
         userinfo.access_token = codingInfo.access_token;
+        userinfo.coding_name = codingInfo.name;
       }
       done(null, userinfo);
     } catch (error) {

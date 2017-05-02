@@ -8,7 +8,7 @@ shell2:
   type: shell
   config:
     script: 
-      - sleep 100000
+      - sleep 10000
 shell0:
   index: 0
   stage: test
