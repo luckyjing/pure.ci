@@ -1,6 +1,13 @@
 import db from '../../lib/db';
 
 export default class ProjectOrm {
+  static async list(user_id) {
+    try {
+      return db.query('SELECT * from project WHERE user_id = ?', [user_id]);
+    } catch (error) {
+      throw error;
+    }
+  }
   static async createProject(id, name, repository_url, repository_name, user_id) {
     try {
       const params = {
@@ -10,7 +17,7 @@ export default class ProjectOrm {
         repository_name,
         user_id
       }
-      return db.query("INSERT INTO project SET ?", params);
+      return db.query('INSERT INTO project SET ?', params);
     } catch (e) {
       throw e;
     }
@@ -53,4 +60,3 @@ export default class ProjectOrm {
     }
   }
 }
-

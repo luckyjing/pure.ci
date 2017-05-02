@@ -11,7 +11,6 @@ export default function checkauth() {
     if (ctx.isAuthenticated() && (ctx.path == '/login' || ctx.path == '/signin') && ctx.path != '/session') {
       ctx.redirect('/');
     }
-
     if (ctx.isAuthenticated()
       || ctx.path.indexOf('user') >= 0
       || ctx.path.indexOf('session') >= 0

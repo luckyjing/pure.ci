@@ -13,11 +13,13 @@ import path from 'path';
 import passport from 'koa-passport';
 import auth from './auth';
 
+import RedisStore from 'koa-redis';
 
 export default function (app) {
 
   app.keys = ['secret'];
   app.proxy = true;
+  app.use(views(__dirname + '/../views', {extension: 'swig'}))
   app.use(convert(cors()));
   app.use(convert(Logger()));
   app.use(bodyParser({
@@ -26,13 +28,10 @@ export default function (app) {
     }
   }));
   app.use(convert(Serve(path.join(__dirname, '../public'))));
-  app.use(convert(session()));
+  app.use(convert(session({sotre: new RedisStore()})));
 
   //auth
   auth();
   app.use(passport.initialize());
   app.use(passport.session());
-
-  app.use(views(__dirname + '/../views', { extension: 'swig' }))
-
 }

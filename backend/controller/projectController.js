@@ -1,28 +1,27 @@
 import Project from '../services/projectServices';
 import Response from '../services/response';
 import HttpCode from '../config/httpCode';
-import { notNull } from '../../util/test.js';
+import {notNull} from '../../util/test.js';
+import uuid from '../../util/uuid';
 
 export async function initProject(ctx, next) {
-  let { name, reposiroty_url, repository_name } = ctx.query;
-  if (!notNull([name, reposiroty_url, repository_name])) {
+  let {name, repository_url, repository_name} = ctx.request.body;
+  if (!notNull([name, repository_url, repository_name])) {
     return ctx.body = new Response(HttpCode.MISSING_PARAM);
   }
-  let user_id = 'faked';
   try {
-    await Project.initProject(user_id, name, reposiroty_url, repository_name);
+    await Project.initProject(ctx.state.user.id, name, repository_url, repository_name);
     ctx.body = new Response(HttpCode.SUCCESS);
   } catch (error) {
-
+    console.log(error);
   }
 }
 export async function projectList(ctx, next) {
-  let user_id = 'faked';
+  let user_id = ctx.state.user.id;
   try {
-    await Project.projectList(user_id);
-  } catch (error) {
-
-  }
+    const projectList = await Project.projectList(user_id);
+    ctx.body = new Response(HttpCode.SUCCESS, projectList);
+  } catch (error) {}
 }
 export async function projectInfo(ctx, next) {
   let user_id = 'faked';
@@ -32,9 +31,7 @@ export async function projectInfo(ctx, next) {
   }
   try {
     await Project.projectInfo(user_id, project_id);
-  } catch (error) {
-
-  }
+  } catch (error) {}
 }
 export async function addWorkFlow(ctx, next) {
   // this.request.body = { key:value }
@@ -42,21 +39,13 @@ export async function addWorkFlow(ctx, next) {
   let workflow = 'faked';
   try {
     await Project.addWorkFlow(user_id, workflow);
-  } catch (error) {
-
-  }
+  } catch (error) {}
 }
 export async function createJob(ctx, next) {
   let project_id = this.params.project_id;
-  
+
   Project.start();
 }
-export async function jobList(ctx, next) {
-
-}
-export async function jobInfo(ctx, next) {
-
-}
-export async function jobStatus(ctx, next) {
-
-}
+export async function jobList(ctx, next) {}
+export async function jobInfo(ctx, next) {}
+export async function jobStatus(ctx, next) {}

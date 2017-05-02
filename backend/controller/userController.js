@@ -35,7 +35,10 @@ export async function register(ctx, next) {
   }
 }
 export async function getUserInfo(ctx, next) {
-  let userid = ctx.state.user.id;
+  let userid = ctx.state.user && ctx.state.user.id;
+  if(!userid){
+    return ctx.redirect('/login');
+  }
   let userinfo = await UserOrm.findOneById(userid);
   if (userinfo.coding_bind) {
     // 如果代码已经关联了，则查找代码仓库信息

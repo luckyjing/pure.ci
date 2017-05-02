@@ -15,6 +15,8 @@
   <script src="https://cdn.bootcss.com/redux/3.6.0/redux.min.js"></script>
   <script src="https://cdn.bootcss.com/react-redux/5.0.3/react-redux.min.js"></script>
   <script src="https://cdn.bootcss.com/babel-polyfill/7.0.0-alpha.3/polyfill.min.js"></script>
+   <script src="https://cdn.bootcss.com/moment.js/2.18.1/moment.min.js"></script>
+  <script src="https://cdn.bootcss.com/moment.js/2.18.1/locale/zh-cn.js"></script>
 </head>
 
 <body>
@@ -25,8 +27,8 @@
     }
   </script>
   {% if env == 'development' %}
-  <script src="http://localhost:9000/vendor.js"></script>
-  <script src="http://localhost:9000/index/index.js"></script>
+  <script src="http://localhost:{{port}}/vendor.js"></script>
+  <script src="http://localhost:{{port}}/index/index.js"></script>
   {% else %}
   <script src="/static/vendor.js"></script>
   <script src="/static/index/index.js"></script>

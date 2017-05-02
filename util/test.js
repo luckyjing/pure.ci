@@ -1,9 +1,13 @@
 /**
  * 数组所有项不能为空
- * @param {*} array 
+ * @param {*} array
  */
 export function notNull(array) {
-  return array.every(item => {
-    item != null || item != undefined
+  let flag = true;
+  array.forEach(item => {
+    if (!item) {
+      flag = false;
+    }
   });
+  return flag;
 }

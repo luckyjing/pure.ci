@@ -5,7 +5,7 @@ import passport from 'passport';
 import { Strategy } from 'passport-local';
 
 import UserOrm from '../services/orm/user';
-
+import CodingOrm from '../services/orm/coding';
 export default function () {
   passport.use(new Strategy({
     usernameField: 'email'
@@ -38,8 +38,12 @@ export default function () {
    */
   passport.deserializeUser(async function (id, done) {
     try {
-      let user = await UserOrm.findOneById(id);
-      done(null, user);
+      let userinfo = await UserOrm.findOneById(id);
+      if (userinfo.coding_bind) {
+        let codingInfo = await CodingOrm.findTokenById(userinfo.coding_bind);
+        userinfo.access_token = codingInfo.access_token;
+      }
+      done(null, userinfo);
     } catch (error) {
       done(error);
     }

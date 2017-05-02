@@ -8,18 +8,18 @@ shell2:
   type: shell
   config:
     script: 
-      - sleep 10000
+      - sleep 100000
 shell0:
   index: 0
   stage: test
   type: shell
   config:
     script: 
-      - echo hello test1    
+      - echo hello test    
 shell1:
   index: 1
   stage: build
   type: shell
   config:
     script: 
-      - echo hello test
+      - echo hello build

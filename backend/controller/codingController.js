@@ -1,7 +1,7 @@
 import CodingOrm from '../services/orm/coding';
 import Response from '../services/response';
 import HttpCode from '../config/httpCode';
-import { CodingOAuth } from '../services/oauth';
+import {CodingOAuth} from '../services/oauth';
 
 export async function getWebHook(ctx, next) {
   let user_name = ctx.query.userName;
@@ -16,9 +16,10 @@ export async function getWebHook(ctx, next) {
     ctx.body = new Response(HttpCode.OTHER_ERROR, e);
   }
 }
-
+// 增加webhook
 export async function postWebHook(ctx, next) {
   let body = ctx.request.body;
+  body.hook_url = 'http://localhost:8999/code/webhook';
   try {
     let res = await CodingOrm.addWebHook(body);
     ctx.body = new Response(HttpCode.SUCCESS, res);
@@ -27,31 +28,44 @@ export async function postWebHook(ctx, next) {
   }
 }
 
-
 // 将获取到的access_token存入到数据库里
 
 export async function bind(ctx, next) {
-  console.log('执行了bind方法')
   let query = ctx.query;
   if (!query.code) {
     return ctx.body = new Response(HttpCode.MISSING_PARAM);
   }
   try {
-    let { access_token, refresh_token, expires_in } = await CodingOAuth.fetchAccessToken(query.code);
-    console.log('拿到了token', access_token)
+    let {access_token, refresh_token, expires_in} = await CodingOAuth.fetchAccessToken(query.code);
     // TODO: 存储到数据库里去
     let user = ctx.state.user;
     if (user.coding_bind) {
-      console.log('已经绑定了')
+      console.log(`${user.id}绑定过coding->重新写入token`)
       // 已经绑定了，只需要写入数据即可
-      await CodingOrm.saveTokenById(user.coding_bind, access_token, refresh_token, expires_in);
+      try {
+        await CodingOrm.saveTokenById(user.coding_bind, access_token, refresh_token, expires_in);
+        console.log('写入数据库完毕')
+      } catch (e) {
+        console.log(e);
+      }
     } else {
-      console.log('第一次绑定', user.id)
+      console.log(`${user.id}未绑定过coding`);
       // 先创建code，然后再写入用户表
       await CodingOrm.createCode(user.id, access_token, refresh_token, expires_in);
+      console.log(`绑定成功`);
     }
     ctx.redirect('/');
-  } catch (e) {
-
-  }
+  } catch (e) {}
+}
+// 获取所有项目列表
+export async function getProjects(ctx, next) {
+  console.log(ctx.state.user);
+  const token = ctx.state.user.access_token;
+  let res = await CodingOrm.projects(token);
+  res = res
+    .list
+    .map(item => {
+      return {repository_url: item.https_url, repository_name: item.name, id: item.id}
+    })
+  ctx.body = new Response(HttpCode.SUCCESS, res);
 }

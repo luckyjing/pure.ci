@@ -8,13 +8,23 @@ import db from '../../lib/db';
 const prefix = 'https://coding.net';
 
 export default class Coding {
+  // 根据code表的id查找access_token
+  static async findTokenById(id){
+    let res = await db.query('SELECT access_token FROM code WHERE id = ?', [id]);
+    return res[0];
+  }
+  // 根据code表的id查找code信息
   static async findByIdWithoutToken(id) {
     let res = await db.query('SELECT id,name,logo FROM code WHERE id = ?', [id]);
     return res[0];
   }
+  // 更新code表的token
   static async saveTokenById(code_id, access_token, refresh_token, expires_in) {
-    return db.query('');
+    return db.query('UPDATE code SET access_token = ? , refresh_token = ? ,expires_in = ? WHERE id = ?', [
+      access_token, refresh_token, expires_in, code_id
+    ]);
   }
+  // 往code表里插入一条新的绑定信息
   static async createCode(user_id, access_token, refresh_token, expires_in) {
     const user = await Coding.user(access_token);
     console.log('拿到了coding账户的基本信息', user.global_key)
@@ -36,10 +46,15 @@ export default class Coding {
   static async user(access_token) {
     return Coding._get('/api/account/current_user', access_token);
   }
+  // 获取用户的项目列表
+  static async projects(access_token){
+    return Coding._get('/api/user/projects',access_token);
+  }
+  // 获取用户某项目的webHook
   static async webHook(user_name, project_name) {
     return Coding._get(`/api/user/${user_name}/project/${project_name}/git/hooks`);
   }
-  // 增加webHook
+  // 为某项目增加webHook
   static async addWebHook(options) {
     let token = '';
     let uri = `${prefix}/api/user/${options.user_name}/project/${options.project_name}/git/hook`
@@ -50,7 +65,9 @@ export default class Coding {
         access_token: token,
       },
       form: {
-        ...options
+        type_push:true,
+        type_mr_pr:true,
+        hook_url:options.hook_url
       }
     });
     return Coding.handleResponse(JSON.parse(res));

@@ -26,8 +26,8 @@
     }
   </script>
   {% if env == 'development' %}
-  <script src="http://localhost:9000/vendor.js"></script>
-  <script src="http://localhost:9000/login/index.js"></script>
+  <script src="http://localhost:{{port}}/vendor.js"></script>
+  <script src="http://localhost:{{port}}/login/index.js"></script>
   {% else %}
   <script src="/static/vendor.js"></script>
   <script src="/static/login/index.js"></script>
