@@ -2,7 +2,7 @@ import fs from 'fs';
 import uuid from '../util/uuid';
 import WorkFlow from './workflow';
 import path from 'path';
-
+import os from 'os';
 export default class Job {
   constructor(workspace, workflowContent) {
     this.id = uuid();
@@ -13,7 +13,7 @@ export default class Job {
     this.ctx = {
       log: function (content) {
         console.log(content);
-        fs.appendFileSync(workspace, content);
+        fs.appendFileSync(Logworkspace, content + os.EOL);
       }
     };
     this.workFlow = new WorkFlow();
@@ -23,7 +23,12 @@ export default class Job {
   }
   onFinish() {}
   getStatus() {
-    return this.status;
+    return {
+      status: this.status,
+      workflowStatus: this
+        .workFlow
+        .getStatus()
+    }
   }
   getDuration() {
     return this.duration;
@@ -39,6 +44,9 @@ export default class Job {
   }
   async run() {
     this.start();
+    this
+      .ctx
+      .log(`作业启动，开始时间：${Date()}`);
     try {
       this
         .ctx
@@ -50,6 +58,7 @@ export default class Job {
       this
         .ctx
         .log(`[Success Job] ${this.id}`)
+
     } catch (e) {
       this.fail();
       this
@@ -58,6 +67,9 @@ export default class Job {
     } finally {
       this.duration = Date.now() - this.start_time;
       this.onFinish();
+      this
+        .ctx
+        .log(`作业结束，耗时：${this.duration} ms`);
     }
   }
 }

@@ -11,14 +11,16 @@ export default class WorkFlow {
    * @param name {string} 阶段名称
    */
   addStage(name) {
-    this.stages.push(name);
+    this
+      .stages
+      .push(name);
   }
   /**
    * stage里追加一条作业
    * @param stage {string} 阶段名称
    * @param key {string} 作业类型
    * @param name {string} 作业名称[唯一]
-   * @param index {number} 作业在当前阶段的运行次序 
+   * @param index {number} 作业在当前阶段的运行次序
    * @param config {object} 作业运行参数
    */
   addTask(stage, key, name, index, config = {}) {
@@ -27,7 +29,8 @@ export default class WorkFlow {
       stage: stage,
       type: key,
       index: index,
-      config: config
+      config: config,
+      status: 0
     }
   }
   /**
@@ -40,6 +43,18 @@ export default class WorkFlow {
       ...this[name],
       ...config
     }
+  }
+  getStatus() {
+    const workFlowStatus = {};
+    for (let key in this) {
+      if (key != 'stages' && key != 'id') {
+        workFlowStatus[key] = {
+          name: key,
+          status: this[key].status
+        }
+      }
+    }
+    return workFlowStatus;
   }
   async runTask(ctx, taskList) {
     let runChain = taskList.map(task => {
@@ -54,36 +69,36 @@ export default class WorkFlow {
       } catch (e) {
         throw e;
       } finally {
-        this.changeTask(instance.name, {
-          status: instance.status
-        })
+        this.changeTask(instance.name, {status: instance.status})
       }
     }
   }
   async run(ctx) {
     // 生成任务链数组，每个数组里是一个async Function
-    let stageChain = this.stages.map(stage => {
-      let taskList = [];
-      for (let key in this) {
-        if (this[key].stage == stage) {
-          taskList.push(this[key]);
+    let stageChain = this
+      .stages
+      .map(stage => {
+        let taskList = [];
+        for (let key in this) {
+          if (this[key].stage == stage) {
+            taskList.push(this[key]);
+          }
         }
-      }
-      // 按照次序进行
-      taskList.sort((a, b) => {
-        return a.index - b.index;
-      })
-      return async () => {
-        ctx.log(`[Start Stage] ${stage} `);
-        try {
-          await this.runTask(ctx, taskList);
-          ctx.log(`[Finish Stage] ${stage} `);
-        } catch (e) {
-          ctx.log(`[Error Stage] ${stage} `);
-          throw e;
+        // 按照次序进行
+        taskList.sort((a, b) => {
+          return a.index - b.index;
+        })
+        return async() => {
+          ctx.log(`[Start Stage] ${stage} `);
+          try {
+            await this.runTask(ctx, taskList);
+            ctx.log(`[Finish Stage] ${stage} `);
+          } catch (e) {
+            ctx.log(`[Error Stage] ${stage} `);
+            throw e;
+          }
         }
-      }
-    });
+      });
     for (let stage of stageChain) {
       try {
         await stage();
@@ -110,9 +125,11 @@ export default class WorkFlow {
    */
   loadConfig(yamlContent) {
     let jsContent = yaml.toJs(yamlContent);
-    jsContent.stages.forEach(stage => {
-      this.addStage(stage);
-    });
+    jsContent
+      .stages
+      .forEach(stage => {
+        this.addStage(stage);
+      });
     for (let key in jsContent) {
       if (key != 'stages') {
         let task = jsContent[key];

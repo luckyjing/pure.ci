@@ -1,0 +1,19 @@
+作业启动，开始时间：Wed May 03 2017 09:58:42 GMT+0800 (CST)
+[Start Job] rkc8Y2UyW
+[Start Stage] test 
+[Start Task] shell0
+> echo hello test
+[Finish Task] shell0
+[Start Task] shell2
+> sleep 1000
+[Finish Task] shell2
+[Finish Stage] test 
+[Start Stage] build 
+[Start Task] shell1
+> echo hello build
+[Finish Task] shell1
+[Finish Stage] build 
+[Start Stage] deploy 
+[Finish Stage] deploy 
+[Success Job] rkc8Y2UyW
+作业结束，耗时：1022 ms

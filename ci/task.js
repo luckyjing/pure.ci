@@ -28,8 +28,7 @@ class Task {
     this.status = -1;
   }
 
-  async run() {
-  }
+  async run() {}
 }
 export default function TaskFactory(config) {
   let detailTask = class extends Task {
@@ -41,7 +40,9 @@ export default function TaskFactory(config) {
     }
 
     async context(ctx) {
-      return config.context.bind(this)(ctx);
+      return config
+        .context
+        .bind(this)(ctx);
     }
 
     fail(e) {
@@ -50,14 +51,14 @@ export default function TaskFactory(config) {
     }
 
     async run(ctx) {
-      ctx.log(chalk.blue.bold('[Start Task]') + ` ${this.name}`);
+      ctx.log('[Start Task]' + ` ${this.name}`);
       this.start();
       try {
         await this.context(ctx);
-        ctx.log(chalk.green.bold('[Finish Task]') + ` ${this.name}`);
+        ctx.log('[Finish Task]' + ` ${this.name}`);
       } catch (e) {
         ctx.log(e);
-        ctx.log(chalk.red.bold('[Error Task]') + ` ${this.name}`);
+        ctx.log('[Error Task]' + ` ${this.name}`);
         throw e;
       }
 

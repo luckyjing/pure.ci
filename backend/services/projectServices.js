@@ -58,27 +58,29 @@ export default class ProjectServices {
     await projectOrm.addWorkFlow(user_id, project_id, workflow);
   }
   /**
-   * TODO: 开始一个新的作业
+   * 开始一个新的作业
    * @param {*} user_id 用户id
    * @param {string} project_id 项目id
-   * @param {string} workflow workflow
    * @param {stirng} commit_msg 代码commit信息
    * @param {string} branch 触发分支
    */
-  static async startJob(user_id, project_id, workflow, commit_msg, branch) {
+  static async startJob(user_id, project_id, commit_msg, branch) {
     console.log('-----启动一项新的作业------');
     // 项目作业空间
     const cwd = getCwd(user_id, project_id);
     console.log(`项目作业空间初始化  ${cwd}`);
-
+    const projectInfo = await projectOrm.getProjectInfo(project_id, user_id);
+    const workflow = projectInfo.workflow;
+    console.log('获取workflow完成');
     // 创建新的Job
     const job = new Job(cwd, workflow);
     console.log('新作业实例化完成');
 
     // 构建成功后，更新数据库，从缓存中删去
-    job.onFinish = () => {
+    job.onFinish = async() => {
       console.log(`作业完成，目前状态:${job.getStatus()},共耗时:${job.getDuration()}`)
-      projectOrm.updateJob(job.id, job.workFlow.saveConfig(), job.getStatus(), job.getDuration());
+      await projectOrm.updateJob(job.id, job.workFlow.saveConfig(), job.getStatus().status, job.getDuration());
+      console.log('执行结果写入数据库完成');
       delete runningProjectMap[job.id];
     };
     // 缓存此Job
@@ -90,7 +92,7 @@ export default class ProjectServices {
     job.run();
   }
   /**
-   * TODO: 更新一个项目的workflow，状态，持续时间
+   * 更新一个项目的workflow，状态，持续时间
    */
   static async updateJob(job_id, workflow, status, duration) {
     await projectOrm.updateJob(job_id, workflow, status, duration);
@@ -127,7 +129,23 @@ export default class ProjectServices {
    * @param {*} project_id
    * @param {*} job_id
    */
-  static async jobInfo(user_id, project_id, job_id) {}
+  static async jobInfo(user_id, project_id, job_id) {
+    // 获取基本信息
+    const info = await projectOrm.jobInfo(job_id);
+    const workspace = getCwd(user_id, project_id);
+    // 获取日志信息,项目作业空间
+    const log = await file.read(path.join(workspace, `./log/job-${job_id}.log`));
+    info.log = log;
+    if (runningProjectMap[job_id]) {
+      // 任务正在运行中，从runnning中取出当前进度
+      const jobStatus = runningProjectMap[job_id].getStatus();
+      console.log(jobStatus);
+      const {status, workflowStatus} = jobStatus;
+      info.runningStatus = workflowStatus;
+      info.status = status;
+    }
+    return info;
+  }
   /**
    * TODO: 获取一个项目一次作业的状态
    * @param {*} user_id 用户名称

@@ -10,7 +10,15 @@ export default class ProjectOrm {
   }
   static async jobList(project_id) {
     try {
-      return db.query('SELECT * from job WHERE project_id =?', [project_id]);
+      return db.query('SELECT * from job WHERE project_id = ? ORDER BY job.start_time DESC', [project_id]);
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async jobInfo(job_id) {
+    try {
+      const resource = await db.query('SELECT * from job WHERE id = ?', [job_id]);
+      return resource[0];
     } catch (error) {
       throw error;
     }
@@ -31,13 +39,13 @@ export default class ProjectOrm {
   }
   static async getProjectInfo(project_id, user_id) {
     try {
-      console.log(project_id, user_id)
       let data = await db.query('SELECT * FROM project WHERE id = ? AND user_id = ?', [project_id, user_id]);
       return data[0];
     } catch (error) {
       throw error;
     }
   }
+
   static async addWorkFlow(user_id, project_id, workflow) {
     try {
       return db.query("UPDATE project SET workflow = ? WHERE id = ? AND user_id = ?", [workflow, project_id, user_id]);

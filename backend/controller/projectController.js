@@ -38,19 +38,23 @@ export async function projectInfo(ctx, next) {
   }
 }
 export async function addWorkFlow(ctx, next) {
-  // this.request.body = { key:value }
-  let user_id = 'faked';
-  let workflow = 'faked';
+  const user_id = ctx.state.user.id;
+  const project_id = ctx.params.project_id;
+  const {workflow} = ctx.request.body;
   try {
-    await Project.addWorkFlow(user_id, workflow);
-  } catch (error) {}
+    await Project.addWorkFlow(user_id, project_id, workflow);
+    ctx.body = new Response(HttpCode.SUCCESS, projectInfo);
+  } catch (error) {
+    ctx.body = new Response(HttpCode.OTHER_ERROR, error);
+    console.log(error)
+  }
 }
 export async function createJob(ctx, next) {
   const user_id = ctx.state.user.id;
   const project_id = ctx.params.project_id;
-  const {project_name, workflow, commit_msg, branch} = ctx.request.body;
+  const {commit_msg, branch} = ctx.request.body;
   try {
-    await Project.startJob(user_id, project_id, project_name, workflow, commit_msg, branch);
+    await Project.startJob(user_id, project_id, commit_msg, branch);
     ctx.body = new Response(HttpCode.SUCCESS);
   } catch (error) {
     ctx.body = new Response(HttpCode.OTHER_ERROR);
@@ -69,7 +73,17 @@ export async function jobList(ctx, next) {
     console.log(error);
   }
 }
-export async function jobInfo(ctx, next) {}
+export async function jobInfo(ctx, next) {
+  const {project_id, job_id} = ctx.params;
+  // 获取Job详情
+  try {
+    const info = await Project.jobInfo(ctx.state.user.id, project_id, job_id);
+    ctx.body = new Response(HttpCode.SUCCESS, info);
+  } catch (error) {
+    ctx.body = new Response(HttpCode.OTHER_ERROR);
+    console.log(error);
+  }
+}
 export async function jobStatus(ctx, next) {}
 
 export async function deleteProject(ctx, next) {
