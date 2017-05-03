@@ -9,3 +9,4 @@ out
 gen
 node_modules
 docker/mysql
+front/node_modules
