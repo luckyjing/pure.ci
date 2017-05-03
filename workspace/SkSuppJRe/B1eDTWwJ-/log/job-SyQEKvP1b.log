@@ -1,0 +1,1270 @@
+开始时间：Wed May 03 2017 22:28:59 GMT+0800 (CST)
+[Start Job]
+[Start Stage] init 
+[Start Task] init  初始化任务
+开始创建临时工作目录...
+创建成功
+===============环境变量=======================
+PROJECT_ID : B1eDTWwJ-
+JOB_ID : SyQEKvP1b
+REPOSITORY_NAME : test-ci
+REPOSITORY_URL : git@git.coding.net:luckyjing/test-ci.git
+==================================================
+[Finish Task] init
+[Start Task] clone  Git 仓库克隆
+> git clone --branch feature/test git@git.coding.net:luckyjing/test-ci.git test-ci
+Cloning into 'test-ci'...
+
+[Finish Task] clone
+[Finish Stage] init 
+[Start Stage] test 
+[Start Task] shell0  执行Shell命令
+> echo 你好，测试阶段
+你好，测试阶段
+
+[Finish Task] shell0
+[Finish Stage] test 
+[Start Stage] build 
+[Start Task] shell1  执行Shell命令
+> echo 你好，构建阶段
+你好，构建阶段
+
+[Finish Task] shell1
+[Start Task] buildImage  构建运行型Docker镜像
+镜像名：b1edtwwj/test-ci
+当前工作目录：/Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/B1eDTWwJ-/tmp/test-ci
+> docker build -t b1edtwwj/test-ci .
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+time="2017-05-03T22:29:00+08:00" level=error msg="Tar: Can't stat file /Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/B1eDTWwJ-/tmp/test-ci to tar: open /Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/B1eDTWwJ-/tmp/test-ci/.git/logs/refs: no such file or directory" 
+time="2017-05-03T22:29:00+08:00" level=error msg="Tar: Can't stat file /Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/B1eDTWwJ-/tmp/test-ci to tar: lstat /Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/B1eDTWwJ-/tmp/test-ci/.git/objects: no such file or directory" 
+time="2017-05-03T22:29:00+08:00" level=error msg="Tar: Can't stat file /Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/B1eDTWwJ-/tmp/test-ci to tar: lstat /Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/B1eDTWwJ-/tmp/test-ci/.git/packed-refs: no such file or directory" 
+
+Sending build context to Docker daemon 8.704 kB
+
+Step 1/6 : FROM daocloud.io/node:5
+
+ ---> 12b4a63115bc
+Step 2/6 : COPY . /app
+
+ ---> 1eab67a3f136
+
+Removing intermediate container 6216fcbbdcb5
+
+Step 3/6 : WORKDIR /app
+
+ ---> f13fa613c9c0
+
+Removing intermediate container dc4acd35e2f3
+Step 4/6 : RUN npm install  --registry=https://registry.npm.taobao.org
+
+ ---> Running in 3d231baed364
+
+[91mnpm[0m
+[91m [0m
+[91minfo [0m
+[91mit worked if it ends with ok
+[0m
+[91mnpm[0m
+[91m [0m
+[91minfo[0m
+[91m using npm@3.8.6
+[0m
+[91mnpm info using node@v5.12.0
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:04 PM
+[0m
+[91mnpm http request GET https://registry.npm.taobao.org/express
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/express
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:05 PM
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:05 PM
+[0m
+[91mnpm http [0m
+[91mfetch[0m
+[91m GET https://registry.npm.taobao.org/express/download/express-4.13.4.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/express/download/express-4.13.4.tgz
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http [0m[91mrequest GET https://registry.npm.taobao.org/accepts
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http[0m
+[91m request GET https://registry.npm.taobao.org/array-flatten
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http[0m
+[91m request GET https://registry.npm.taobao.org/content-disposition
+[0m
+[91mnpm info [0m
+[91mattempt[0m
+[91m registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http request[0m
+[91m GET https://registry.npm.taobao.org/content-type
+[0m
+[91mnpm info attempt[0m
+[91m registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http [0m[91mrequest[0m
+[91m GET https://registry.npm.taobao.org/cookie
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm [0m
+[91mhttp request[0m
+[91m GET https://registry.npm.taobao.org/cookie-signature
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m[91mnpm http [0m
+[91mrequest GET https://registry.npm.taobao.org/debug
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http request GET https://registry.npm.taobao.org/depd
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm[0m
+[91m [0m
+[91mhttp [0m
+[91mrequest GET https://registry.npm.taobao.org/escape-html
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm [0m
+[91mhttp request GET https://registry.npm.taobao.org/etag
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m[91mnpm[0m
+[91m http[0m
+[91m request[0m
+[91m GET https://registry.npm.taobao.org/finalhandler
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm [0m[91mhttp[0m
+[91m request GET https://registry.npm.taobao.org/fresh
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm[0m
+[91m http request[0m
+[91m GET https://registry.npm.taobao.org/merge-descriptors
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http request GET https://registry.npm.taobao.org/methods
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http request GET https://registry.npm.taobao.org/on-finished
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m[91mnpm http request GET https://registry.npm.taobao.org/parseurl
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm[0m
+[91m http request GET https://registry.npm.taobao.org/path-to-regexp
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http [0m
+[91mrequest[0m
+[91m GET https://registry.npm.taobao.org/proxy-addr
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http request GET https://registry.npm.taobao.org/qs
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http[0m
+[91m request[0m[91m GET https://registry.npm.taobao.org/range-parser
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m[91mnpm http request GET https://registry.npm.taobao.org/send
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http request GET https://registry.npm.taobao.org/serve-static
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http request GET https://registry.npm.taobao.org/type-is
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http [0m
+[91mrequest GET https://registry.npm.taobao.org/utils-merge
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+npm http[0m
+[91m request GET https://registry.npm.taobao.org/vary
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/utils-merge
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http fetch GET https://registry.npm.taobao.org/utils-merge/download/utils-merge-1.0.0.tgz
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/escape-html
+[0m
+[91mnpm http[0m
+[91m 200 https://registry.npm.taobao.org/accepts
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/fresh
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/on-finished
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m
+[91mnpm info attempt[0m
+[91m registry request try #1 at 2:29:06 PM
+npm http fetch GET https://registry.npm.taobao.org/escape-html/download/escape-html-1.0.3.tgz
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/content-type
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/content-disposition
+[0m
+[91mnpm[0m
+[91m http 200 https://registry.npm.taobao.org/vary
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/cookie-signature
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/array-flatten
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m[91mnpm http fetch GET https://registry.npm.taobao.org/accepts/download/accepts-1.2.13.tgz
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http fetch GET https://registry.npm.taobao.org/fresh/download/fresh-0.3.0.tgz
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http fetch[0m
+[91m GET https://registry.npm.taobao.org/on-finished/download/on-finished-2.3.0.tgz
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/methods
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http fetch GET https://registry.npm.taobao.org/content-type/download/content-type-1.0.2.tgz
+[0m
+[91mnpm [0m
+[91minfo retry fetch attempt 1 at 2:29:06 PM
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http fetch GET https://registry.npm.taobao.org/content-disposition/download/content-disposition-0.5.1.tgz
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http fetch GET https://registry.npm.taobao.org/vary/download/vary-1.0.1.tgz
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+npm http fetch GET https://registry.npm.taobao.org/cookie-signature/download/cookie-signature-1.0.6.tgz
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/merge-descriptors
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/utils-merge/download/utils-merge-1.0.0.tgz
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/depd
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m[91mnpm info [0m
+[91mattempt registry request try #1 at 2:29:06 PM
+npm[0m
+[91m [0m
+[91mhttp fetch[0m
+[91m GET https://registry.npm.taobao.org/array-flatten/download/array-flatten-1.1.1.tgz
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http fetch GET https://registry.npm.taobao.org/methods/download/methods-1.1.2.tgz
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/range-parser
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/parseurl
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/finalhandler
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m[91mnpm[0m
+[91m info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm[0m
+[91m http fetch GET https://registry.npm.taobao.org/merge-descriptors/download/merge-descriptors-1.0.1.tgz
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m
+[91mnpm [0m
+[91minfo attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http fetch GET https://registry.npm.taobao.org/depd/download/depd-1.1.0.tgz
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/proxy-addr
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/etag
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/cookie
+[0m
+[91mnpm [0m
+[91mhttp[0m
+[91m fetch 200 https://registry.npm.taobao.org/escape-html/download/escape-html-1.0.3.tgz
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m
+[91mnpm info attempt[0m
+[91m registry request try #1 at 2:29:06 PM
+[0m[91mnpm http[0m
+[91m [0m[91mfetch GET https://registry.npm.taobao.org/parseurl/download/parseurl-1.3.1.tgz
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m
+[91mnpm[0m
+[91m info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http fetch GET https://registry.npm.taobao.org/range-parser/download/range-parser-1.0.3.tgz
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/send
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+[0m
+[91mnpm http fetch GET https://registry.npm.taobao.org/finalhandler/download/finalhandler-0.4.1.tgz
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m
+[91mnpm[0m
+[91m info attempt registry request try #1 at 2:29:06 PM
+npm http fetch GET https://registry.npm.taobao.org/proxy-addr/download/proxy-addr-1.0.10.tgz
+npm info retry fetch attempt 1 at 2:29:06 PM
+npm info attempt registry request try #1 at 2:29:06 PM
+npm http fetch GET https://registry.npm.taobao.org/cookie/download/cookie-0.1.5.tgz
+npm info retry fetch attempt 1 at 2:29:06 PM
+npm info attempt registry request try #1 at 2:29:06 PM
+npm http fetch GET https://registry.npm.taobao.org/etag/download/etag-1.7.0.tgz
+[0m
+[91mnpm http fetch[0m
+[91m 200 https://registry.npm.taobao.org/accepts/download/accepts-1.2.13.tgz
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m
+[91mnpm [0m
+[91minfo attempt registry request try #1 at 2:29:06 PM
+npm http fetch GET https://registry.npm.taobao.org/send/download/send-0.13.1.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/on-finished/download/on-finished-2.3.0.tgz
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/type-is
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/depd/download/depd-1.1.0.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/array-flatten/download/array-flatten-1.1.1.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/fresh/download/fresh-0.3.0.tgz
+[0m
+[91mnpm http[0m[91m fetch 200 https://registry.npm.taobao.org/cookie-signature/download/cookie-signature-1.0.6.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/content-type/download/content-type-1.0.2.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/vary/download/vary-1.0.1.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/range-parser/download/range-parser-1.0.3.tgz
+[0m
+[91mnpm http[0m
+[91m fetch 200 https://registry.npm.taobao.org/content-disposition/download/content-disposition-0.5.1.tgz
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/serve-static
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+npm http fetch GET https://registry.npm.taobao.org/type-is/download/type-is-1.6.15.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/methods/download/methods-1.1.2.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/proxy-addr/download/proxy-addr-1.0.10.tgz
+[0m
+[91mnpm http[0m
+[91m [0m
+[91mfetch 200 https://registry.npm.taobao.org/etag/download/etag-1.7.0.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/parseurl/download/parseurl-1.3.1.tgz
+[0m
+[91mnpm http [0m[91m200 https://registry.npm.taobao.org/debug
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:06 PM
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:06 PM
+npm http fetch GET https://registry.npm.taobao.org/serve-static/download/serve-static-1.10.3.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/send/download/send-0.13.1.tgz
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/qs
+[0m
+[91mnpm http [0m[91mfetch 200 https://registry.npm.taobao.org/merge-descriptors/download/merge-descriptors-1.0.1.tgz
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:07 PM
+[0m
+[91mnpm info[0m
+[91m attempt registry request try #1 at 2:29:07 PM
+[0m
+[91mnpm http fetch GET https://registry.npm.taobao.org/debug/download/debug-2.2.0.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/type-is/download/type-is-1.6.15.tgz
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/path-to-regexp
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:07 PM
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:07 PM
+npm http fetch GET https://registry.npm.taobao.org/qs/download/qs-4.0.0.tgz
+[0m
+[91mnpm http [0m
+[91mfetch 200 https://registry.npm.taobao.org/finalhandler/download/finalhandler-0.4.1.tgz
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:07 PM
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:07 PM
+npm http fetch GET https://registry.npm.taobao.org/path-to-regexp/download/path-to-regexp-0.1.7.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/cookie/download/cookie-0.1.5.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/debug/download/debug-2.2.0.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/serve-static/download/serve-static-1.10.3.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/path-to-regexp/download/path-to-regexp-0.1.7.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/qs/download/qs-4.0.0.tgz
+[0m
+[91mnpm info [0m
+[91mattempt[0m[91m registry request try #1 at 2:29:07 PM
+[0m
+[91mnpm[0m[91m [0m
+[91mhttp[0m[91m [0m
+[91mrequest[0m
+[91m GET https://registry.npm.taobao.org/mime-types
+[0m
+[91mnpm[0m
+[91m info [0m
+[91mattempt[0m
+[91m registry request try #1 at 2:29:07 PM
+[0m
+[91mnpm[0m
+[91m http[0m
+[91m [0m
+[91mrequest[0m
+[91m GET https://registry.npm.taobao.org/negotiator
+[0m
+[91mnpm http[0m[91m [0m
+[91m200[0m
+[91m https://registry.npm.taobao.org/negotiator
+[0m
+[91mnpm info [0m
+[91mretry fetch attempt 1 at 2:29:07 PM
+[0m
+[91mnpm [0m
+[91minfo attempt[0m
+[91m registry request try #1 at 2:29:07 PM
+[0m
+[91mnpm [0m
+[91mhttp[0m
+[91m fetch[0m
+[91m GET https://registry.npm.taobao.org/negotiator/download/negotiator-0.5.3.tgz
+[0m
+[91mnpm [0m[91mhttp 200[0m
+[91m https://registry.npm.taobao.org/mime-types
+[0m
+[91mnpm [0m
+[91minfo retry fetch attempt 1 at 2:29:07 PM
+[0m
+[91mnpm [0m
+[91minfo attempt registry request try #1 at 2:29:07 PM
+[0m
+[91mnpm [0m
+[91mhttp [0m
+[91mfetch GET https://registry.npm.taobao.org/mime-types/download/mime-types-2.1.15.tgz
+[0m
+[91mnpm[0m[91m [0m
+[91mhttp [0m[91mfetch[0m[91m 200 https://registry.npm.taobao.org/negotiator/download/negotiator-0.5.3.tgz
+[0m
+[91mnpm [0m
+[91mhttp fetch 200 https://registry.npm.taobao.org/mime-types/download/mime-types-2.1.15.tgz
+[0m
+[91mnpm [0m[91minfo[0m
+[91m attempt registry request try #1 at 2:29:07 PM
+[0m[91mnpm[0m[91m [0m[91mhttp[0m
+[91m [0m[91mrequest[0m
+[91m GET https://registry.npm.taobao.org/mime-db
+[0m
+[91mnpm[0m[91m [0m
+[91mhttp [0m[91m200[0m
+[91m https://registry.npm.taobao.org/mime-db
+[0m
+[91mnpm[0m[91m info[0m
+[91m retry[0m[91m fetch attempt 1 at 2:29:08 PM
+[0m
+[91mnpm [0m[91minfo [0m
+[91mattempt registry request try #1 at 2:29:08 PM
+[0m
+[91mnpm[0m
+[91m [0m
+[91mhttp[0m
+[91m [0m
+[91mfetch GET https://registry.npm.taobao.org/mime-db/download/mime-db-1.27.0.tgz
+[0m
+[91mnpm [0m
+[91mhttp[0m[91m [0m
+[91mfetch[0m[91m 200 https://registry.npm.taobao.org/mime-db/download/mime-db-1.27.0.tgz
+[0m
+[91mnpm [0m[91minfo[0m
+[91m [0m
+[91mattempt[0m
+[91m registry request try #1 at 2:29:08 PM
+[0m
+[91mnpm[0m
+[91m [0m[91mhttp[0m
+[91m [0m[91mrequest GET https://registry.npm.taobao.org/ms
+[0m
+[91mnpm[0m[91m [0m
+[91mhttp[0m[91m [0m
+[91m200[0m
+[91m https://registry.npm.taobao.org/ms
+[0m
+[91mnpm [0m[91minfo retry[0m
+[91m fetch attempt 1 at 2:29:08 PM
+npm[0m
+[91m info attempt registry request try #1 at 2:29:08 PM
+npm[0m[91m http[0m
+[91m fetch GET https://registry.npm.taobao.org/ms/download/ms-0.7.1.tgz
+[0m
+[91mnpm [0m[91mhttp[0m
+[91m fetch[0m
+[91m 200 https://registry.npm.taobao.org/ms/download/ms-0.7.1.tgz
+[0m
+[91mnpm[0m[91m info[0m
+[91m attempt[0m
+[91m registry request try #1 at 2:29:08 PM
+[0m[91mnpm http request GET https://registry.npm.taobao.org/unpipe
+[0m
+[91mnpm [0m[91mhttp 200[0m
+[91m https://registry.npm.taobao.org/unpipe
+[0m
+[91mnpm[0m[91m [0m[91minfo[0m
+[91m retry[0m
+[91m fetch attempt 1 at 2:29:08 PM
+[0m
+[91mnpm[0m
+[91m info[0m
+[91m [0m[91mattempt[0m
+[91m registry request try #1 at 2:29:08 PM
+[0m
+[91mnpm[0m[91m [0m[91mhttp[0m
+[91m [0m[91mfetch[0m
+[91m GET https://registry.npm.taobao.org/unpipe/download/unpipe-1.0.0.tgz
+[0m
+[91mnpm[0m
+[91m [0m
+[91mhttp [0m[91mfetch[0m[91m 200 https://registry.npm.taobao.org/unpipe/download/unpipe-1.0.0.tgz
+[0m
+[91mnpm[0m
+[91m info [0m[91mattempt[0m
+[91m registry request try #1 at 2:29:09 PM
+[0m
+[91mnpm[0m
+[91m http[0m
+[91m [0m
+[91mrequest[0m[91m GET https://registry.npm.taobao.org/ee-first
+[0m
+[91mnpm[0m
+[91m http [0m[91m200[0m[91m https://registry.npm.taobao.org/ee-first
+[0m
+[91mnpm info[0m
+[91m [0m[91mretry fetch attempt 1 at 2:29:09 PM
+[0m
+[91mnpm [0m
+[91minfo [0m[91mattempt[0m
+[91m registry request try #1 at 2:29:09 PM
+[0m
+[91mnpm[0m
+[91m [0m[91mhttp[0m
+[91m fetch GET https://registry.npm.taobao.org/ee-first/download/ee-first-1.1.1.tgz
+[0m
+[91mnpm[0m
+[91m http[0m[91m fetch 200 https://registry.npm.taobao.org/ee-first/download/ee-first-1.1.1.tgz
+[0m
+[91mnpm [0m[91minfo attempt[0m
+[91m registry request try #1 at 2:29:09 PM
+npm http request GET https://registry.npm.taobao.org/forwarded
+[0m
+[91mnpm [0m[91minfo[0m
+[91m [0m
+[91mattempt registry request try #1 at 2:29:09 PM
+[0m
+[91mnpm[0m
+[91m http[0m
+[91m request GET https://registry.npm.taobao.org/ipaddr.js
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/forwarded
+[0m
+[91mnpm[0m
+[91m [0m
+[91minfo retry[0m
+[91m fetch attempt 1 at 2:29:09 PM
+[0m
+[91mnpm info[0m
+[91m attempt registry request try #1 at 2:29:09 PM
+[0m
+[91mnpm [0m[91mhttp[0m[91m [0m[91mfetch[0m[91m GET https://registry.npm.taobao.org/forwarded/download/forwarded-0.1.0.tgz
+[0m
+[91mnpm[0m[91m [0m[91mhttp[0m
+[91m [0m
+[91mfetch 200 https://registry.npm.taobao.org/forwarded/download/forwarded-0.1.0.tgz
+[0m
+[91mnpm[0m[91m [0m
+[91mhttp [0m[91m200[0m[91m https://registry.npm.taobao.org/ipaddr.js
+[0m
+[91mnpm[0m
+[91m info[0m
+[91m [0m
+[91mretry fetch attempt 1 at 2:29:09 PM
+[0m
+[91mnpm [0m
+[91minfo attempt[0m
+[91m registry request try #1 at 2:29:09 PM
+[0m
+[91mnpm[0m[91m http [0m
+[91mfetch GET https://registry.npm.taobao.org/ipaddr.js/download/ipaddr.js-1.0.5.tgz
+[0m
+[91mnpm[0m
+[91m http[0m
+[91m [0m
+[91mfetch[0m[91m 200 https://registry.npm.taobao.org/ipaddr.js/download/ipaddr.js-1.0.5.tgz
+[0m
+[91mnpm info attempt[0m
+[91m registry request try #1 at 2:29:09 PM
+[0m
+[91mnpm [0m
+[91mhttp request[0m[91m GET https://registry.npm.taobao.org/destroy
+[0m
+[91mnpm info[0m[91m [0m[91mattempt[0m[91m registry request try #1 at 2:29:09 PM
+[0m
+[91mnpm http request GET https://registry.npm.taobao.org/http-errors
+[0m
+[91mnpm[0m
+[91m info [0m[91mattempt[0m[91m registry request try #1 at 2:29:09 PM
+[0m
+[91mnpm http[0m
+[91m [0m[91mrequest[0m[91m GET https://registry.npm.taobao.org/mime
+[0m
+[91mnpm[0m
+[91m info[0m[91m [0m
+[91mattempt[0m
+[91m registry request try #1 at 2:29:09 PM
+[0m
+[91mnpm[0m
+[91m [0m
+[91mhttp[0m
+[91m request[0m
+[91m GET https://registry.npm.taobao.org/statuses
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/destroy
+[0m
+[91mnpm [0m[91minfo retry[0m
+[91m fetch attempt 1 at 2:29:09 PM
+[0m
+[91mnpm [0m
+[91minfo[0m
+[91m attempt[0m
+[91m registry request try #1 at 2:29:09 PM
+[0m
+[91mnpm[0m
+[91m http [0m
+[91mfetch[0m
+[91m GET https://registry.npm.taobao.org/destroy/download/destroy-1.0.4.tgz
+[0m
+[91mnpm [0m
+[91mhttp 200[0m
+[91m https://registry.npm.taobao.org/statuses
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:09 PM
+[0m
+[91mnpm [0m[91minfo [0m[91mattempt[0m
+[91m registry request try #1 at 2:29:09 PM
+npm [0m
+[91mhttp fetch GET https://registry.npm.taobao.org/statuses/download/statuses-1.2.1.tgz
+[0m
+[91mnpm[0m[91m http[0m
+[91m 200 https://registry.npm.taobao.org/mime
+[0m
+[91mnpm [0m
+[91mhttp [0m[91mfetch 200 https://registry.npm.taobao.org/destroy/download/destroy-1.0.4.tgz
+[0m
+[91mnpm [0m
+[91minfo [0m[91mretry[0m
+[91m fetch attempt 1 at 2:29:09 PM
+[0m
+[91mnpm [0m[91minfo [0m
+[91mattempt registry request try #1 at 2:29:09 PM
+[0m
+[91mnpm http fetch GET https://registry.npm.taobao.org/mime/download/mime-1.3.4.tgz
+[0m
+[91mnpm [0m
+[91mhttp 200[0m[91m https://registry.npm.taobao.org/http-errors
+[0m
+[91mnpm info [0m[91mretry[0m[91m fetch attempt 1 at 2:29:09 PM
+npm[0m[91m info[0m
+[91m [0m
+[91mattempt registry request try #1 at 2:29:09 PM
+[0m
+[91mnpm[0m
+[91m http fetch GET https://registry.npm.taobao.org/http-errors/download/http-errors-1.3.1.tgz
+[0m
+[91mnpm http[0m[91m fetch[0m
+[91m 200 https://registry.npm.taobao.org/statuses/download/statuses-1.2.1.tgz
+[0m
+[91mnpm[0m[91m http[0m
+[91m fetch 200 https://registry.npm.taobao.org/mime/download/mime-1.3.4.tgz
+[0m
+[91mnpm [0m[91mhttp[0m[91m [0m
+[91mfetch[0m[91m 200 https://registry.npm.taobao.org/http-errors/download/http-errors-1.3.1.tgz
+[0m
+[91mnpm[0m[91m info[0m
+[91m attempt registry request try #1 at 2:29:10 PM
+[0m
+[91mnpm [0m
+[91mhttp [0m
+[91mrequest GET https://registry.npm.taobao.org/inherits
+[0m
+[91mnpm[0m
+[91m http[0m
+[91m 200[0m
+[91m https://registry.npm.taobao.org/inherits
+[0m
+[91mnpm info[0m[91m [0m
+[91mretry fetch attempt 1 at 2:29:10 PM
+[0m
+[91mnpm[0m
+[91m info[0m
+[91m attempt registry request try #1 at 2:29:10 PM
+[0m
+[91mnpm [0m[91mhttp[0m
+[91m fetch[0m[91m GET https://registry.npm.taobao.org/inherits/download/inherits-2.0.3.tgz
+[0m
+[91mnpm http[0m
+[91m fetch 200 https://registry.npm.taobao.org/inherits/download/inherits-2.0.3.tgz
+[0m
+[91mnpm info retry fetch attempt 1 at 2:29:10 PM
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:10 PM
+npm http fetch GET https://registry.npm.taobao.org/send/download/send-0.13.2.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/send/download/send-0.13.2.tgz
+[0m
+[91mnpm info attempt registry request try #1 at 2:29:10 PM
+[0m[91mnpm[0m
+[91m http request GET https://registry.npm.taobao.org/media-typer
+[0m
+[91mnpm http 200 https://registry.npm.taobao.org/media-typer
+[0m
+[91mnpm[0m
+[91m info retry fetch attempt 1 at 2:29:10 PM
+[0m
+[91mnpm [0m
+[91minfo attempt registry request try #1 at 2:29:10 PM
+npm http fetch GET https://registry.npm.taobao.org/media-typer/download/media-typer-0.3.0.tgz
+[0m
+[91mnpm http fetch 200 https://registry.npm.taobao.org/media-typer/download/media-typer-0.3.0.tgz
+[0m
+[91mnpm[0m[91m [0m
+[91minfo lifecycle array-flatten@1.1.1~preinstall: array-flatten@1.1.1
+[0m
+[91mnpm info lifecycle content-disposition@0.5.1~preinstall: content-disposition@0.5.1
+[0m[91mnpm info [0m[91mlifecycle content-type@1.0.2~preinstall: content-type@1.0.2
+[0m
+[91mnpm[0m
+[91m [0m[91minfo lifecycle cookie@0.1.5~preinstall: cookie@0.1.5
+[0m
+[91mnpm [0m
+[91minfo lifecycle cookie-signature@1.0.6~preinstall: cookie-signature@1.0.6
+[0m
+[91mnpm info[0m
+[91m lifecycle depd@1.1.0~preinstall: depd@1.1.0
+[0m
+[91mnpm[0m[91m [0m
+[91minfo lifecycle destroy@1.0.4~preinstall: destroy@1.0.4
+[0m
+[91mnpm info lifecycle ee-first@1.1.1~preinstall: ee-first@1.1.1
+[0m
+[91mnpm[0m
+[91m info lifecycle escape-html@1.0.3~preinstall: escape-html@1.0.3
+[0m
+[91mnpm info lifecycle etag@1.7.0~preinstall: etag@1.7.0
+[0m
+[91mnpm info [0m
+[91mlifecycle forwarded@0.1.0~preinstall: forwarded@0.1.0
+[0m
+[91mnpm[0m
+[91m info lifecycle[0m
+[91m fresh@0.3.0~preinstall: fresh@0.3.0
+[0m
+[91mnpm info lifecycle inherits@2.0.3~preinstall: inherits@2.0.3
+[0m
+[91mnpm[0m
+[91m info [0m
+[91mlifecycle ipaddr.js@1.0.5~preinstall: ipaddr.js@1.0.5
+[0m
+[91mnpm[0m
+[91m info [0m
+[91mlifecycle media-typer@0.3.0~preinstall: media-typer@0.3.0
+[0m[91mnpm[0m
+[91m info lifecycle[0m
+[91m merge-descriptors@1.0.1~preinstall: merge-descriptors@1.0.1
+npm info lifecycle[0m
+[91m methods@1.1.2~preinstall: methods@1.1.2
+[0m
+[91mnpm info lifecycle mime@1.3.4~preinstall: mime@1.3.4
+[0m
+[91mnpm [0m[91minfo [0m
+[91mlifecycle mime-db@1.27.0~preinstall: mime-db@1.27.0
+[0m
+[91mnpm info lifecycle mime-types@2.1.15~preinstall: mime-types@2.1.15
+[0m
+[91mnpm info lifecycle ms@0.7.1~preinstall: ms@0.7.1
+[0m
+[91mnpm info lifecycle[0m
+[91m debug@2.2.0~preinstall: debug@2.2.0
+[0m
+[91mnpm info lifecycle negotiator@0.5.3~preinstall: negotiator@0.5.3
+npm[0m
+[91m info lifecycle accepts@1.2.13~preinstall: accepts@1.2.13
+[0m
+[91mnpm info lifecycle on-finished@2.3.0~preinstall: on-finished@2.3.0
+npm info lifecycle parseurl@1.3.1~preinstall: parseurl@1.3.1
+[0m
+[91mnpm info lifecycle path-to-regexp@0.1.7~preinstall: path-to-regexp@0.1.7
+[0m
+[91mnpm info lifecycle proxy-addr@1.0.10~preinstall: proxy-addr@1.0.10
+[0m
+[91mnpm info lifecycle[0m
+[91m qs@4.0.0~preinstall: qs@4.0.0
+[0m
+[91mnpm[0m[91m [0m
+[91minfo [0m
+[91mlifecycle[0m
+[91m range-parser@1.0.3~preinstall: range-parser@1.0.3
+[0m
+[91mnpm[0m
+[91m info[0m
+[91m [0m
+[91mlifecycle statuses@1.2.1~preinstall: statuses@1.2.1
+[0m
+[91mnpm info lifecycle http-errors@1.3.1~preinstall: http-errors@1.3.1
+[0m
+[91mnpm[0m
+[91m [0m[91minfo lifecycle send@0.13.2~preinstall: send@0.13.2
+[0m
+[91mnpm [0m[91minfo lifecycle[0m
+[91m serve-static@1.10.3~preinstall: serve-static@1.10.3
+[0m
+[91mnpm [0m
+[91minfo lifecycle send@0.13.1~preinstall: send@0.13.1
+[0m
+[91mnpm info [0m[91mlifecycle[0m
+[91m type-is@1.6.15~preinstall: type-is@1.6.15
+[0m
+[91mnpm info lifecycle unpipe@1.0.0~preinstall: unpipe@1.0.0
+[0m
+[91mnpm info[0m
+[91m lifecycle finalhandler@0.4.1~preinstall: finalhandler@0.4.1
+[0m
+[91mnpm info [0m[91mlifecycle utils-merge@1.0.0~preinstall: utils-merge@1.0.0
+[0m
+[91mnpm info lifecycle vary@1.0.1~preinstall: vary@1.0.1
+[0m
+[91mnpm info lifecycle express@4.13.4~preinstall: express@4.13.4
+[0m
+[91mnpm info linkStuff array-flatten@1.1.1
+[0m
+[91mnpm info linkStuff content-disposition@0.5.1
+[0m
+[91mnpm info linkStuff content-type@1.0.2
+[0m
+[91mnpm info linkStuff cookie@0.1.5
+[0m
+[91mnpm info linkStuff cookie-signature@1.0.6
+[0m
+[91mnpm info linkStuff depd@1.1.0
+[0m
+[91mnpm info linkStuff destroy@1.0.4
+[0m
+[91mnpm info linkStuff ee-first@1.1.1
+[0m
+[91mnpm info linkStuff escape-html@1.0.3
+[0m
+[91mnpm info [0m
+[91mlinkStuff etag@1.7.0
+[0m
+[91mnpm info linkStuff forwarded@0.1.0
+[0m
+[91mnpm info linkStuff fresh@0.3.0
+[0m
+[91mnpm info [0m
+[91mlinkStuff inherits@2.0.3
+[0m
+[91mnpm info linkStuff ipaddr.js@1.0.5
+[0m
+[91mnpm info linkStuff media-typer@0.3.0
+[0m
+[91mnpm info linkStuff merge-descriptors@1.0.1
+[0m
+[91mnpm info linkStuff methods@1.1.2
+[0m
+[91mnpm info linkStuff mime@1.3.4
+[0m
+[91mnpm info linkStuff mime-db@1.27.0
+[0m
+[91mnpm info linkStuff[0m
+[91m mime-types@2.1.15
+[0m
+[91mnpm info linkStuff ms@0.7.1
+[0m
+[91mnpm [0m
+[91minfo linkStuff debug@2.2.0
+[0m
+[91mnpm info linkStuff negotiator@0.5.3
+[0m
+[91mnpm info[0m
+[91m linkStuff accepts@1.2.13
+[0m
+[91mnpm info[0m
+[91m linkStuff on-finished@2.3.0
+[0m
+[91mnpm info linkStuff parseurl@1.3.1
+[0m
+[91mnpm info linkStuff path-to-regexp@0.1.7
+[0m
+[91mnpm info linkStuff proxy-addr@1.0.10
+[0m
+[91mnpm info linkStuff qs@4.0.0
+[0m
+[91mnpm info linkStuff range-parser@1.0.3
+[0m
+[91mnpm info linkStuff statuses@1.2.1
+[0m
+[91mnpm info linkStuff http-errors@1.3.1
+[0m
+[91mnpm info linkStuff send@0.13.2
+[0m
+[91mnpm[0m
+[91m info linkStuff serve-static@1.10.3
+[0m
+[91mnpm info linkStuff send@0.13.1
+[0m
+[91mnpm info [0m
+[91mlinkStuff type-is@1.6.15
+[0m
+[91mnpm info linkStuff unpipe@1.0.0
+[0m
+[91mnpm info [0m
+[91mlinkStuff finalhandler@0.4.1
+[0m
+[91mnpm info[0m
+[91m linkStuff utils-merge@1.0.0
+[0m
+[91mnpm info [0m
+[91mlinkStuff vary@1.0.1
+[0m
+[91mnpm info linkStuff express@4.13.4
+[0m
+[91mnpm info lifecycle array-flatten@1.1.1~install: array-flatten@1.1.1
+[0m
+[91mnpm info lifecycle content-disposition@0.5.1~install: content-disposition@0.5.1
+[0m
+[91mnpm info lifecycle[0m[91m content-type@1.0.2~install: content-type@1.0.2
+[0m
+[91mnpm info [0m[91mlifecycle cookie@0.1.5~install: cookie@0.1.5
+[0m
+[91mnpm info lifecycle cookie-signature@1.0.6~install: cookie-signature@1.0.6
+[0m
+[91mnpm info lifecycle depd@1.1.0~install: depd@1.1.0
+[0m
+[91mnpm info lifecycle destroy@1.0.4~install: destroy@1.0.4
+[0m
+[91mnpm info lifecycle ee-first@1.1.1~install: ee-first@1.1.1
+[0m
+[91mnpm info lifecycle escape-html@1.0.3~install: escape-html@1.0.3
+[0m
+[91mnpm info lifecycle etag@1.7.0~install: etag@1.7.0
+[0m
+[91mnpm info lifecycle forwarded@0.1.0~install: forwarded@0.1.0
+[0m
+[91mnpm info lifecycle fresh@0.3.0~install: fresh@0.3.0
+[0m
+[91mnpm info [0m
+[91mlifecycle inherits@2.0.3~install: inherits@2.0.3
+[0m
+[91mnpm info lifecycle ipaddr.js@1.0.5~install: ipaddr.js@1.0.5
+[0m
+[91mnpm info lifecycle media-typer@0.3.0~install: media-typer@0.3.0
+[0m
+[91mnpm info lifecycle merge-descriptors@1.0.1~install: merge-descriptors@1.0.1
+[0m
+[91mnpm info lifecycle methods@1.1.2~install: methods@1.1.2
+[0m
+[91mnpm info lifecycle mime@1.3.4~install: mime@1.3.4
+[0m
+[91mnpm info[0m
+[91m lifecycle mime-db@1.27.0~install: mime-db@1.27.0
+[0m
+[91mnpm info lifecycle mime-types@2.1.15~install: mime-types@2.1.15
+[0m
+[91mnpm info lifecycle ms@0.7.1~install: ms@0.7.1
+[0m
+[91mnpm info[0m
+[91m lifecycle debug@2.2.0~install: debug@2.2.0
+[0m
+[91mnpm info lifecycle negotiator@0.5.3~install: negotiator@0.5.3
+[0m
+[91mnpm info lifecycle accepts@1.2.13~install: accepts@1.2.13
+[0m
+[91mnpm info lifecycle[0m
+[91m on-finished@2.3.0~install: on-finished@2.3.0
+[0m
+[91mnpm info lifecycle parseurl@1.3.1~install: parseurl@1.3.1
+[0m
+[91mnpm info lifecycle path-to-regexp@0.1.7~install: path-to-regexp@0.1.7
+[0m
+[91mnpm info lifecycle proxy-addr@1.0.10~install: proxy-addr@1.0.10
+[0m
+[91mnpm info lifecycle qs@4.0.0~install: qs@4.0.0
+[0m
+[91mnpm info lifecycle range-parser@1.0.3~install: range-parser@1.0.3
+[0m
+[91mnpm info lifecycle statuses@1.2.1~install: statuses@1.2.1
+[0m
+[91mnpm info lifecycle http-errors@1.3.1~install: http-errors@1.3.1
+[0m
+[91mnpm info lifecycle send@0.13.2~install: send@0.13.2
+[0m
+[91mnpm info lifecycle serve-static@1.10.3~install: serve-static@1.10.3
+[0m
+[91mnpm info lifecycle send@0.13.1~install: send@0.13.1
+[0m
+[91mnpm info lifecycle type-is@1.6.15~install: type-is@1.6.15
+[0m
+[91mnpm info lifecycle unpipe@1.0.0~install: unpipe@1.0.0
+[0m
+[91mnpm info lifecycle finalhandler@0.4.1~install: finalhandler@0.4.1
+[0m
+[91mnpm info lifecycle utils-merge@1.0.0~install: utils-merge@1.0.0
+[0m
+[91mnpm info lifecycle[0m
+[91m vary@1.0.1~install: vary@1.0.1
+[0m
+[91mnpm info lifecycle express@4.13.4~install: express@4.13.4
+[0m
+[91mnpm info lifecycle array-flatten@1.1.1~postinstall: array-flatten@1.1.1
+[0m
+[91mnpm info lifecycle content-disposition@0.5.1~postinstall: content-disposition@0.5.1
+[0m
+[91mnpm info lifecycle content-type@1.0.2~postinstall: content-type@1.0.2
+[0m
+[91mnpm info lifecycle cookie@0.1.5~postinstall: cookie@0.1.5
+[0m
+[91mnpm info lifecycle cookie-signature@1.0.6~postinstall: cookie-signature@1.0.6
+[0m
+[91mnpm info lifecycle depd@1.1.0~postinstall: depd@1.1.0
+[0m
+[91mnpm info lifecycle destroy@1.0.4~postinstall: destroy@1.0.4
+[0m
+[91mnpm info lifecycle ee-first@1.1.1~postinstall: ee-first@1.1.1
+[0m
+[91mnpm info lifecycle escape-html@1.0.3~postinstall: escape-html@1.0.3
+[0m
+[91mnpm info lifecycle etag@1.7.0~postinstall: etag@1.7.0
+[0m
+[91mnpm info lifecycle forwarded@0.1.0~postinstall: forwarded@0.1.0
+[0m
+[91mnpm info lifecycle fresh@0.3.0~postinstall: fresh@0.3.0
+[0m
+[91mnpm info lifecycle inherits@2.0.3~postinstall: inherits@2.0.3
+[0m
+[91mnpm info lifecycle ipaddr.js@1.0.5~postinstall: ipaddr.js@1.0.5
+[0m
+[91mnpm info lifecycle media-typer@0.3.0~postinstall: media-typer@0.3.0
+[0m
+[91mnpm[0m
+[91m info lifecycle merge-descriptors@1.0.1~postinstall: merge-descriptors@1.0.1
+[0m
+[91mnpm info lifecycle methods@1.1.2~postinstall: methods@1.1.2
+[0m
+[91mnpm info lifecycle mime@1.3.4~postinstall: mime@1.3.4
+[0m
+[91mnpm info lifecycle mime-db@1.27.0~postinstall: mime-db@1.27.0
+[0m
+[91mnpm info lifecycle mime-types@2.1.15~postinstall: mime-types@2.1.15
+[0m
+[91mnpm info lifecycle ms@0.7.1~postinstall: ms@0.7.1
+npm info lifecycle debug@2.2.0~postinstall: debug@2.2.0
+npm info lifecycle negotiator@0.5.3~postinstall: negotiator@0.5.3
+npm info lifecycle accepts@1.2.13~postinstall: accepts@1.2.13
+[0m[91mnpm info lifecycle on-finished@2.3.0~postinstall: on-finished@2.3.0
+[0m
+[91mnpm info lifecycle parseurl@1.3.1~postinstall: parseurl@1.3.1
+[0m
+[91mnpm info lifecycle path-to-regexp@0.1.7~postinstall: path-to-regexp@0.1.7
+[0m
+[91mnpm info lifecycle proxy-addr@1.0.10~postinstall: proxy-addr@1.0.10
+[0m
+[91mnpm info lifecycle qs@4.0.0~postinstall: qs@4.0.0
+[0m
+[91mnpm info lifecycle range-parser@1.0.3~postinstall: range-parser@1.0.3
+[0m
+[91mnpm info lifecycle statuses@1.2.1~postinstall: statuses@1.2.1
+[0m
+[91mnpm info lifecycle http-errors@1.3.1~postinstall: http-errors@1.3.1
+[0m
+[91mnpm info lifecycle send@0.13.2~postinstall: send@0.13.2
+[0m
+[91mnpm info lifecycle serve-static@1.10.3~postinstall: serve-static@1.10.3
+[0m
+[91mnpm info lifecycle send@0.13.1~postinstall: send@0.13.1
+[0m
+[91mnpm info lifecycle type-is@1.6.15~postinstall: type-is@1.6.15
+[0m
+[91mnpm info lifecycle unpipe@1.0.0~postinstall: unpipe@1.0.0
+[0m
+[91mnpm info lifecycle finalhandler@0.4.1~postinstall: finalhandler@0.4.1
+[0m
+[91mnpm info lifecycle utils-merge@1.0.0~postinstall: utils-merge@1.0.0
+[0m
+[91mnpm info[0m
+[91m lifecycle vary@1.0.1~postinstall: vary@1.0.1
+[0m
+[91mnpm info lifecycle express@4.13.4~postinstall: express@4.13.4
+[0m
+[91mnpm info lifecycle node-project@1.0.0~preinstall: node-project@1.0.0
+[0m
+[91mnpm info linkStuff node-project@1.0.0
+[0m
+[91mnpm info lifecycle node-project@1.0.0~install: node-project@1.0.0
+[0m
+[91mnpm info lifecycle node-project@1.0.0~postinstall: node-project@1.0.0
+[0m
+[91mnpm info lifecycle node-project@1.0.0~prepublish: node-project@1.0.0
+[0m
+node-project@1.0.0 /app
+`-- express@4.13.4 
+  +-- accepts@1.2.13 
+  | +-- mime-types@2.1.15 
+  | | `-- mime-db@1.27.0 
+  | `-- negotiator@0.5.3 
+  +-- array-flatten@1.1.1 
+  +-- content-disposition@0.5.1 
+  +-- content-type@1.0.2 
+  +-- cookie@0.1.5 
+  +-- cookie-signature@1.0.6 
+  +-- debug@2.2.0 
+  | `-- ms@0.7.1 
+  +-- depd@1.1.0 
+  +-- escape-html@1.0.3 
+  +-- etag@1.7.0 
+  +-- finalhandler@0.4.1 
+  | `-- unpipe@1.0.0 
+  +-- fresh@0.3.0 
+  +-- merge-descriptors@1.0.1 
+  +-- methods@1.1.2 
+  +-- on-finished@2.3.0 
+  | `-- ee-first@1.1.1 
+  +-- parseurl@1.3.1 
+  +-- path-to-regexp@0.1.7 
+  +-- proxy-addr@1.0.10 
+  | +-- forwarded@0.1.0 
+  | `-- ipaddr.js@1.0.5 
+  +-- qs@4.0.0 
+  +-- range-parser@1.0.3 
+  +-- send@0.13.1 
+  | +-- destroy@1.0.4 
+  | +-- http-errors@1.3.1 
+  | | `-- inherits@2.0.3 
+  | +-- mime@1.3.4 
+  | `-- statuses@1.2.1 
+  +-- serve-static@1.10.3 
+  | `-- send@0.13.2 
+  +-- type-is@1.6.15 
+  | `-- media-typer@0.3.0 
+  +-- utils-merge@1.0.0 
+  `-- vary@1.0.1 
+
+
+[91mnpm WARN node-project@1.0.0 No repository field.
+[0m
+[91mnpm WARN node-project@1.0.0 No license field.
+[0m
+[91mnpm info ok 
+[0m
+ ---> 0bd1bc2e49d0
+
+Removing intermediate container 3d231baed364
+
+Step 5/6 : EXPOSE 8000
+
+ ---> Running in cb6b3bde63f0
+
+ ---> 93083f264da0
+
+Removing intermediate container cb6b3bde63f0
+Step 6/6 : CMD npm start
+
+ ---> Running in 87818290975d
+
+ ---> 2dec399f1bc9
+
+Removing intermediate container 87818290975d
+
+Successfully built 2dec399f1bc9
+
+[Finish Task] buildImage
+[Finish Stage] build 
+[Start Stage] deploy 
+[Start Task] shell2  执行Shell命令
+> echo 你好，部署阶段
+你好，部署阶段
+
+[Finish Task] shell2
+[Start Task] clean  收尾任务
+开始清除临时工作目录...
+清除完成
+[Finish Task] clean
+[Finish Stage] deploy 
+[Success Job]
+作业结束，耗时：15625 ms

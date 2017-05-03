@@ -22082,6 +22082,73 @@ samp {
 .ant-motion-collapse-active {
   transition: height .12s, opacity .12s;
 }
+.material-card {
+  background: #fff;
+  box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.07), 1px 2px 5px 0 rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+  outline: none!important;
+  padding: 15px 25px;
+}
+.material-card [class*="ant-row"] {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.material-card.no-padding {
+  padding: 0px;
+}
+.circle {
+  border-radius: 50%;
+}
+.material-card [class*="ant-row"] {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.detail-topbar {
+  height: 100px;
+  background: #fff;
+  margin: -15px;
+  margin-bottom: 12px;
+  padding: 15px;
+}
+.text-error {
+  color: #d54c53;
+}
+.text-success {
+  color: #78b037;
+}
+.text-warning {
+  color: #F5A623;
+}
+.text-muted {
+  color: #ccc;
+}
+.bg-error {
+  background-color: #d54c53;
+}
+.bg-success {
+  background-color: #78b037;
+}
+.bg-warning {
+  background-color: #F5A623;
+}
+.bg-muted {
+  background-color: #ccc;
+}
+.CodeMirror {
+  height: 350px;
+}
+.CodeMirror pre {
+  font-size: 14px;
+  font-family: Consolas, Menlo, Courier, monospace;
+}
+.detail-bar {
+  margin-top: -27px !important;
+  margin-left: -25px;
+  margin-right: -25px;
+  line-height: 60px;
+  color: #fff;
+  padding-left: 25px;
+}
 /**
  * basic layout
  * @version 0.1
@@ -22130,8 +22197,95 @@ body,
 .table-footer {
   padding: 16px;
 }
-.app-container .layout-main-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  min-width: 1000px;
+.material-card {
+  background: #fff;
+  box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.07), 1px 2px 5px 0 rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+  outline: none!important;
+  padding: 15px 25px;
+}
+.material-card.no-padding {
+  padding: 0px;
+}
+.circle {
+  border-radius: 50%;
+}
+.app-container .main-content {
+  width: 100%;
+  padding-left: 220px;
+  background: #F9F9F9;
+  height: 100vh;
+  overflow: scroll;
+  position: relative;
+}
+.app-container .layout-content {
+  padding: 15px;
+  margin-top: 64px;
+}
+.material-card {
+  background: #fff;
+  box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.07), 1px 2px 5px 0 rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+  outline: none!important;
+  padding: 15px 25px;
+}
+.material-card.no-padding {
+  padding: 0px;
+}
+.circle {
+  border-radius: 50%;
+}
+.layout-siderbar {
+  background: #474747;
+  height: 100vh;
+  width: 220px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+.layout-siderbar .siderbar-logo {
+  width: 100%;
+  height: 64px;
+}
+.layout-siderbar a {
+  color: inherit;
+}
+.material-card {
+  background: #fff;
+  box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.07), 1px 2px 5px 0 rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+  outline: none!important;
+  padding: 15px 25px;
+}
+.material-card.no-padding {
+  padding: 0px;
+}
+.circle {
+  border-radius: 50%;
+}
+.layout-topbar {
+  background: white;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+  height: 64px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 220px;
+  z-index: 1;
+  padding: 0 25px;
+}
+.layout-topbar .logo,
+.layout-topbar .user-name {
+  line-height: 64px;
+  display: inline-block;
+}
+.layout-topbar .logo {
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  background: #ccc;
+}
+.layout-topbar .user-name {
+  cursor: pointer;
 }

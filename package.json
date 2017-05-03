@@ -5,9 +5,9 @@
   "main": "start.js",
   "scripts": {
     "dev:front": "cd front && npm run dev",
-    "dev:back": "cross-env NODE_ENV=development && nodemon backend/start.js",
-    "prod:back": "npm run build:front && cross-env NODE_ENV=production && node backend/start.js",
-    "build:front": "sh build.sh",
+    "dev:back": "cross-env NODE_ENV=development  nodemon backend/start.js",
+    "production": "npm run build:front && cross-env NODE_ENV=production node backend/start.js",
+    "build:front": "echo 'sh build.sh'",
     "test": "ava",
     "doc": "aglio -i api/api.apib -s  --theme-variables streak",
     "mock": "api-mock api/api.apib --port 8998"

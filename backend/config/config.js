@@ -2,6 +2,7 @@
 const path = require("path");
 const _ = require("lodash");
 let env = process.env.NODE_ENV = process.env.NODE_ENV || "development";
+console.log(`运行环境：${env}`);
 let base = {
   app: {
     root: path.normalize(path.join(__dirname, "/..")),
@@ -44,15 +45,15 @@ let specific = {
       redirect_uri: "http://sujing.xin/auth/coding"
     },
     app: {
-      port: 80,
+      port: 8000,
       name: "pure-ci",
       excluded: "excluded_path"
     },
     mysql: {
-      host: '127.0.0.1',
+      host: 'sujing.xin',
       port: 3306,
       user: 'root',
-      password: 'jingxin.sjx',
+      password: 'sujingxin',
       database: 'pureci'
     },
     deploy_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCfVzlagIpPLuGWLehFD+MNiTZkfjVNsnZUy3wVKXQ5' +

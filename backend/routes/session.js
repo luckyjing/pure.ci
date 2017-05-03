@@ -1,6 +1,6 @@
 import Router from 'koa-router';
 import HttpCode from '../config/httpCode';
-import Response from '../services/Response';
+import Response from '../services/response';
 import passport from 'passport';
 const router = new Router();
 

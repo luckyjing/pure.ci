@@ -6,16 +6,23 @@
   <title>Pure</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
+  <link href="https://cdn.bootcss.com/codemirror/5.25.2/codemirror.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/codemirror/5.25.2/theme/material.min.css" rel="stylesheet">
   <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
   <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
   <script src="https://cdn.bootcss.com/redux/3.6.0/redux.min.js"></script>
   <script src="https://cdn.bootcss.com/react-redux/5.0.3/react-redux.min.js"></script>
   <script src="https://cdn.bootcss.com/babel-polyfill/7.0.0-alpha.3/polyfill.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/moment.js/2.18.1/moment.min.js"></script>
+  <script src="https://cdn.bootcss.com/moment.js/2.18.1/locale/zh-cn.js"></script>
+  
 <link href="/index/index.css" rel="stylesheet"></head>
 
 <body>
   <div id="stage"></div>
  <script>
+ moment.locale('zh-cn');
     var PURE_CI_CONFIG={
       API_PREFIX:''
     }
