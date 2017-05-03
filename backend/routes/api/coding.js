@@ -4,8 +4,8 @@ import Router from 'koa-router';
 import * as codingController from '../../controller/codingController';
 const router = new Router();
 
-router.get('/webhook', codingController.getWebHook);
+router.get('/recievehook', codingController.recieveWebHook);
 router.post('/webhook', codingController.postWebHook);
 
-router.get('/projects',codingController.getProjects);
+router.get('/projects', codingController.getProjects);
 export default router;

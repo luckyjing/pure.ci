@@ -1,0 +1,49 @@
+开始时间：Wed May 03 2017 16:09:42 GMT+0800 (CST)
+[Start Job]
+[Start Stage] init 
+[Start Task] init  初始化任务
+开始创建临时工作目录...
+创建成功
+===============环境变量=======================
+JOB_ID : SJ0SgMP1b
+REPOSITORY_NAME : test-ci
+REPOSITORY_URL : git@git.coding.net:luckyjing/test-ci.git
+==================================================
+[Finish Task] init
+[Start Task] clone  Git 仓库克隆
+> git clone --branch feature/test git@git.coding.net:luckyjing/test-ci.git test-ci
+Cloning into 'test-ci'...
+
+[脚本执行结束]退出码：0
+[Finish Task] clone
+[Finish Stage] init 
+[Start Stage] test 
+[Start Task] shell0  执行Shell命令
+> echo 你好，测试阶段
+你好，测试阶段
+
+[脚本执行结束]退出码：0
+[Finish Task] shell0
+[Finish Stage] test 
+[Start Stage] build 
+[Start Task] shell1  执行Shell命令
+> echo 你好，构建阶段
+你好，构建阶段
+
+[脚本执行结束]退出码：0
+[Finish Task] shell1
+[Finish Stage] build 
+[Start Stage] deploy 
+[Start Task] shell2  执行Shell命令
+> echo 你好，部署阶段
+你好，部署阶段
+
+[脚本执行结束]退出码：0
+[Finish Task] shell2
+[Start Task] clean  收尾任务
+开始清除临时工作目录...
+清除完成
+[Finish Task] clean
+[Finish Stage] deploy 
+[Success Job]
+作业结束，耗时：1667 ms

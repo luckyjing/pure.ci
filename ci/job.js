@@ -4,7 +4,7 @@ import WorkFlow from './workflow';
 import path from 'path';
 import os from 'os';
 export default class Job {
-  constructor(workspace, workflowContent) {
+  constructor(workspace, workflowContent, option = {}) {
     this.id = uuid();
     this.status = 0;
     this.duration = 0;
@@ -12,9 +12,13 @@ export default class Job {
     let Logworkspace = path.join(workspace, `./log/job-${this.id}.log`);
     this.ctx = {
       log: function (content) {
-        console.log(content);
+        console.log(content.toString());
+
         fs.appendFileSync(Logworkspace, content + os.EOL);
-      }
+      },
+      WORKSPACE: workspace,
+      JOB_ID: this.id,
+      ...option
     };
     this.workFlow = new WorkFlow();
     this
@@ -46,24 +50,24 @@ export default class Job {
     this.start();
     this
       .ctx
-      .log(`作业启动，开始时间：${Date()}`);
+      .log(`开始时间：${Date()}`);
     try {
       this
         .ctx
-        .log(`[Start Job] ${this.id}`)
+        .log(`[Start Job]`)
       await this
         .workFlow
         .run(this.ctx);
       this.success();
       this
         .ctx
-        .log(`[Success Job] ${this.id}`)
+        .log(`[Success Job]`)
 
     } catch (e) {
       this.fail();
       this
         .ctx
-        .log(`[Error Job] ${this.id}`)
+        .log(`[Error Job]`)
     } finally {
       this.duration = Date.now() - this.start_time;
       this.onFinish();

@@ -76,7 +76,22 @@ export default class Coding {
         hook_url: hook_url
       }
     };
-    console.log('addWebHook：', params)
+    const res = await request(params);
+    return Coding.handleResponse(JSON.parse(res));
+  }
+  static async addDeployKey(access_token, user_name, project_name, deploy_key) {
+    const uri = `${prefix}/api/user/${user_name}/project/${project_name}/git/deploy_key`
+    const params = {
+      method: 'POST',
+      uri: uri,
+      qs: {
+        access_token: access_token
+      },
+      form: {
+        title: `${project_name}_deploy_key` + parseInt(Math.random() * 1000),
+        content: deploy_key
+      }
+    };
     const res = await request(params);
     return Coding.handleResponse(JSON.parse(res));
   }
@@ -95,6 +110,7 @@ export default class Coding {
   static handleResponse(res) {
     if (res.code != 0) {
       // 出现错误,抛出错误信息
+      console.log(res);
       throw res.msg;
     } else {
       return res.data;

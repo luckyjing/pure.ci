@@ -6,7 +6,7 @@ import * as file from '../../util/file';
 import Job from '../../ci/job';
 import path from 'path';
 import fs from 'fs';
-import {workspace, hook_url} from '../config/config';
+import {workspace, hook_url, deploy_key} from '../config/config';
 const runningProjectMap = {};
 function getBaseWorkSpace(user_id) {
   return path.join(workspace, `${user_id}`);
@@ -22,20 +22,27 @@ const defaultWorkflow = fs.readFileSync(path.join(__dirname, '../config/workflow
  */
 export default class ProjectServices {
   /**
-   * TODO: 生成一个项目
+   * 生成一个项目
    * @param {*} user_id 用户id
    * @param {*} project_name 项目名称
    * @param {*} repository_url 绑定的仓库URL
    * @param {*} repository_name 绑定的仓库名
    * @returns {string|*} projectId
    */
+
   static async initProject(ctx, user_id, project_name, repository_url, repository_name) {
     const project_id = uuid();
     const space = `${user_id}/${project_id}`;
     // 增加WebHook
     const {access_token, coding_name} = ctx.state.user;
     await codingOrm.addWebHook(access_token, coding_name, repository_name, hook_url);
-    // 创建项目文件夹
+    // 添加部署公钥 创建项目文件夹
+    try {
+      await codingOrm.addDeployKey(access_token, coding_name, repository_name, deploy_key);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log('公钥添加完毕');
     await shell('mkdir', [
       '-p', space
     ], workspace);
@@ -72,10 +79,15 @@ export default class ProjectServices {
     const projectInfo = await projectOrm.getProjectInfo(project_id, user_id);
     const workflow = projectInfo.workflow;
     console.log('获取workflow完成');
+    const option = {
+      PROJECT_ID: projectInfo.id,
+      REPOSITORY_NAME: projectInfo.repository_name,
+      REPOSITORY_URL: projectInfo.repository_url,
+      BRANCH: branch
+    }
     // 创建新的Job
-    const job = new Job(cwd, workflow);
+    const job = new Job(cwd, workflow, option);
     console.log('新作业实例化完成');
-
     // 构建成功后，更新数据库，从缓存中删去
     job.onFinish = async() => {
       console.log(`作业完成，目前状态:${job.getStatus()},共耗时:${job.getDuration()}`)

@@ -1,25 +1,39 @@
 stages:
+  - init
   - test
   - build
   - deploy
-shell2:
-  index: 1
-  stage: test
-  type: shell
-  config:
-    script: 
-      - sleep 10000
-shell0:
+init:
   index: 0
+  stage: init
+  type: init
+
+clone:
+  index: 1
+  stage: init
+  type: clone
+  
+shell0:
+  index: 1
   stage: test
   type: shell
   config:
-    script: 
-      - echo hello test    
+    script: echo 你好，测试阶段 
+
 shell1:
-  index: 1
+  index: 0
   stage: build
   type: shell
   config:
-    script: 
-      - echo hello build
+    script: echo 你好，构建阶段 
+
+shell2:
+  index: 0
+  stage: deploy
+  type: shell
+  config:
+    script: echo 你好，部署阶段
+clean:
+  index: 1
+  stage: deploy
+  type: clean

@@ -2,7 +2,7 @@ import CodingOrm from '../services/orm/coding';
 import Response from '../services/response';
 import HttpCode from '../config/httpCode';
 import {CodingOAuth} from '../services/oauth';
-
+import {hook_url} from '../config/config';
 export async function getWebHook(ctx, next) {
   let user_name = ctx.query.userName;
   let project_name = ctx.query.projectName;
@@ -16,10 +16,15 @@ export async function getWebHook(ctx, next) {
     ctx.body = new Response(HttpCode.OTHER_ERROR, e);
   }
 }
+// 接收到远端的webhook推送，启动作业
+export async function recieveWebHook(ctx, next) {
+  const header = ctx.header;
+  console.log(header);
+}
 // 增加webhook
 export async function postWebHook(ctx, next) {
   let body = ctx.request.body;
-  body.hook_url = 'http://localhost:8999/code/webhook';
+  body.hook_url = hook_url;
   try {
     let res = await CodingOrm.addWebHook(body);
     ctx.body = new Response(HttpCode.SUCCESS, res);
@@ -65,7 +70,7 @@ export async function getProjects(ctx, next) {
   res = res
     .list
     .map(item => {
-      return {repository_url: item.https_url, repository_name: item.name, id: item.id}
+      return {repository_url: item.ssh_url, repository_name: item.name, id: item.id}
     })
   ctx.body = new Response(HttpCode.SUCCESS, res);
 }

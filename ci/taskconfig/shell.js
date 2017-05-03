@@ -1,4 +1,5 @@
 import Shell from 'shell-task'
+import shell from '../../util/shell';
 
 let exec = (task) => {
   if (!task) {
@@ -22,9 +23,19 @@ export default {
     /* default config */
   },
   async context(ctx) {
+    let script = this
+      .config
+      .script
+      .trim();
+    let source = script
+      .split(' ')
+      .shift();
+    let params = script
+      .split(' ')
+      .slice(1);
     try {
-      ctx.log(`> ${this.config.script[0]}`)
-      await exec(this.config.script[0]);
+      const log = await shell(source, params, ctx.WORKSPACE);
+      ctx.log(log);
     } catch (e) {
       return this.fail(e);
     }

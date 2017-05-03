@@ -51,7 +51,7 @@ export default function TaskFactory(config) {
     }
 
     async run(ctx) {
-      ctx.log('[Start Task]' + ` ${this.name}`);
+      ctx.log('[Start Task]' + ` ${this.name}  ${this.config.taskName}`);
       this.start();
       try {
         await this.context(ctx);

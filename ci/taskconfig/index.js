@@ -4,8 +4,14 @@
 import init from './init'
 import sleep from './sleep'
 import shell from './shell'
+import clone from './clone'
+import clean from './clean'
+import buildRunningImage from './buildRunningImage'
 export default {
   init,
   sleep,
-  shell
+  shell,
+  clone,
+  clean,
+  buildRunningImage
 }
