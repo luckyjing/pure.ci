@@ -1,0 +1,62 @@
+@import "./variables.less";
+.material-card {
+  [class*="ant-row"] {
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+}
+
+.detail-topbar {
+  height: 100px;
+  background: #fff;
+  margin: -15px;
+  margin-bottom: 12px;
+  padding: 15px;
+}
+
+.text- {
+  &error {
+    color: @error-color;
+  }
+  &success {
+    color: @success-color;
+  }
+  &warning {
+    color: @warning-color;
+  }
+  &muted {
+    color: #ccc;
+  }
+}
+
+.bg- {
+  &error {
+    background-color: @error-color;
+  }
+  &success {
+    background-color: @success-color;
+  }
+  &warning {
+    background-color: @warning-color;
+  }
+  &muted {
+    background-color: #ccc;
+  }
+}
+
+.CodeMirror {
+  height: 350px;
+  pre {
+    font-size: 14px;
+    font-family: Consolas, Menlo, Courier, monospace;
+  }
+}
+
+.detail-bar {
+  margin-top: -27px!important;
+  margin-left: -25px;
+  margin-right: -25px;
+  line-height: 60px;
+  color: #fff;
+  padding-left: 25px;
+}

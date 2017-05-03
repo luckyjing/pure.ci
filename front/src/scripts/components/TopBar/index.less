@@ -1,0 +1,25 @@
+@import "../../../css/variables";
+.layout-topbar {
+  background: white;
+  box-shadow: 0 0 1px rgba(0, 0, 0, .3);
+  height: @topbar-height;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: @menu-width;
+  z-index: 1;
+  padding: 0 25px;
+  .logo, .user-name {
+    line-height: @topbar-height;
+    display: inline-block;
+  }
+    .logo {
+      .circle();
+      width: 36px;
+      height: 36px;
+      background: #ccc;
+    }
+  .user-name {
+    cursor: pointer;
+  }
+}

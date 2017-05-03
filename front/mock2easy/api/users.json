@@ -1,0 +1,12 @@
+{
+     "interfaceType": "GET",
+     "requiredParameters": [],
+     "responseParameters": [],
+     "reqError": [],
+     "docError": [],
+     "interfaceUrl": "/api/users.json",
+     "interfaceName": "/api/users.json",
+     "lazyLoad": "no",
+     "responseParametersType": true,
+     "responseJson": "{\"code\":200,\"data\":[{\"name\":\"dbl\",\"age\":\"very young\"}]}"
+}
