@@ -6,7 +6,7 @@
   "scripts": {
     "dev:front": "cd front && npm run dev",
     "dev:back": "cross-env NODE_ENV=development  nodemon backend/start.js",
-    "production": "npm run build:front && cross-env NODE_ENV=production pm2 start backend/start.js",
+    "production": "cross-env NODE_ENV=production pm2 start backend/start.js",
     "build:front": "sh build.sh",
     "test": "ava",
     "doc": "aglio -i api/api.apib -s  --theme-variables streak",
