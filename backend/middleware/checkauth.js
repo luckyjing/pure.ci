@@ -16,6 +16,7 @@ export default function checkauth() {
       || ctx.path.indexOf('session') >= 0
       || ctx.path === '/login'
       || ctx.path === '/signin'
+      || ctx.path === '/code/recievehook'
     ) {
       await next()
     } else {

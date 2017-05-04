@@ -8,6 +8,14 @@ export default class ProjectOrm {
       throw error;
     }
   }
+  static async getIdByRepositoryUrl(url) {
+    try {
+      const resource = await db.query('SELECT * from project WHERE repository_url = ?', [url]);
+      return resource[0];
+    } catch (error) {
+      throw error;
+    }
+  }
   static async jobList(project_id) {
     try {
       return db.query('SELECT * from job WHERE project_id = ? ORDER BY job.start_time DESC', [project_id]);

@@ -1,4 +1,5 @@
 import CodingOrm from '../services/orm/coding';
+import ProjectOrm from '../services/orm/project';
 import Response from '../services/response';
 import HttpCode from '../config/httpCode';
 import {CodingOAuth} from '../services/oauth';
@@ -24,8 +25,8 @@ export async function recieveWebHook(ctx, next) {
   console.log('接收到远端的webhook推送，推送类型为：', event);
   if (event) {
     if (event == 'push') {
-      const user_id = ctx.state.user.id;
       console.log(ctx.request.body);
+      // ProjectOrm.getIdByRepositoryUrl();
       // const commit_msg = ctx.request.body;
       await Project.startJob(user_id, project_id, commit_msg, branch);
 
