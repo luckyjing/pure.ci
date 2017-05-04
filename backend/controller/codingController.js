@@ -29,12 +29,15 @@ export async function recieveWebHook(ctx, next) {
       const ssh_url = body.repository.ssh_url;
       const projectInfo = await ProjectOrm.getIdByRepositoryUrl(ssh_url);
       let commit_msg;
+      console.log(body.commit);
       try {
         commit_msg = body.commit[0].short_message;
       } catch (e) {
         commit_msg = 'webhook构建';
       }
-      const branch = body.ref;
+      const branch = body
+        .ref
+        .replace('refs/heads/', '');
       const project_id = projectInfo.id;
       const user_id = projectInfo.user_id;
       await Project.startJob(user_id, project_id, commit_msg, branch);
