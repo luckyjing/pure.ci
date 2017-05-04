@@ -9,7 +9,7 @@ let base = {
     env: env
   },
   workspace: path.join(__dirname, '../../workspace'),
-  hook_url: 'http://sujing.xin/code/recievehook'
+  hook_url: 'http://sujing.xin:8000/recievehook'
 };
 
 let specific = {

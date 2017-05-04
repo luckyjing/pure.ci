@@ -26,8 +26,7 @@ export async function recieveWebHook(ctx, next) {
   if (event) {
     if (event == 'push') {
       console.log(ctx.request.body);
-      // ProjectOrm.getIdByRepositoryUrl();
-      // const commit_msg = ctx.request.body;
+      // ProjectOrm.getIdByRepositoryUrl(); const commit_msg = ctx.request.body;
       await Project.startJob(user_id, project_id, commit_msg, branch);
 
     }
@@ -77,7 +76,7 @@ export async function bind(ctx, next) {
 }
 // 获取所有项目列表
 export async function getProjects(ctx, next) {
-  console.log(ctx.state.user);
+  console.log('getProjects');
   const token = ctx.state.user.access_token;
   let res = await CodingOrm.projects(token);
   res = res

@@ -13,8 +13,6 @@ import path from 'path';
 import passport from 'koa-passport';
 import auth from './auth';
 
-import RedisStore from 'koa-redis';
-
 export default function (app) {
 
   app.keys = ['secret'];
@@ -28,7 +26,7 @@ export default function (app) {
     }
   }));
   app.use(convert(Serve(path.join(__dirname, '../public'))));
-  app.use(convert(session({sotre: new RedisStore()})));
+  app.use(convert(session()));
 
   //auth
   auth();
