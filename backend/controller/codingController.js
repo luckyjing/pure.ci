@@ -27,7 +27,7 @@ export async function recieveWebHook(ctx, next) {
     if (event == 'push') {
       console.log(ctx.request.body);
       // ProjectOrm.getIdByRepositoryUrl(); const commit_msg = ctx.request.body;
-      await Project.startJob(user_id, project_id, commit_msg, branch);
+      // await Project.startJob(user_id, project_id, commit_msg, branch);
 
     }
   }
