@@ -8,7 +8,6 @@ import Response from '../services/response';
  */
 export default function checkauth() {
   return async function (ctx, next) {
-    console.log(ctx.isAuthenticated())
     if (ctx.isAuthenticated() && (ctx.path == '/login' || ctx.path == '/signin') && ctx.path != '/session') {
       ctx.redirect('/');
     }
@@ -17,7 +16,7 @@ export default function checkauth() {
       || ctx.path.indexOf('session') >= 0
       || ctx.path === '/login'
       || ctx.path === '/signin'
-      // || ctx.path === '/recievehook'
+      || ctx.path === '/api/code/recievehook'
     ) {
       await next()
     } else {

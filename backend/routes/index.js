@@ -31,9 +31,7 @@ router.get('/logout', async (ctx, next) => {
   ctx.logout()
   ctx.redirect('/login');
 });
-// router.get('*', async (ctx, next) => {
-//   await ctx.render('./index', renderParams)
-// });
+
 
 export default function routes() {
   return compose([

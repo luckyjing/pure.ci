@@ -36,6 +36,7 @@ export default function () {
    * 当需要使用user对象时,使用上一步存储的id属性，从数据库读取用户信息
    */
   passport.deserializeUser(async function (id, done) {
+    console.log('获取了用户信息');
     try {
       let userinfo = await UserOrm.findOneById(id);
       if (userinfo.coding_bind) {

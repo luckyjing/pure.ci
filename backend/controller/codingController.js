@@ -21,7 +21,7 @@ export async function getWebHook(ctx, next) {
 // 接收到远端的webhook推送，启动作业
 export async function recieveWebHook(ctx, next) {
   const header = ctx.header;
-  const event = header['X-Coding-Event'] || '';
+  const event = header['x-coding-event'] || '';
   console.log('接收到远端的webhook推送，推送类型为：', event);
   if (event) {
     if (event == 'push') {
@@ -31,7 +31,7 @@ export async function recieveWebHook(ctx, next) {
 
     }
   }
-  ctx.body = 'ok';
+  ctx.body = new Response(HttpCode.SUCCESS, header);
 }
 // 增加webhook
 export async function postWebHook(ctx, next) {

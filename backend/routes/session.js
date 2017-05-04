@@ -8,7 +8,7 @@ const router = new Router();
  * 登录
  */
 router.post('/', async (ctx, next) => {
-  let middleware = passport.authenticate('local', async (err, user, info) => {
+  const middleware = passport.authenticate('local', async (err, user, info) => {
     if (err) {
       ctx.status = 500;
     }
