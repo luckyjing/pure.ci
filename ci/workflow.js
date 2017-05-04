@@ -73,31 +73,34 @@ export default class WorkFlow {
       }
     }
   }
+  generateStageTask(ctx, stage) {
+    let taskList = [];
+    for (let key in this) {
+      if (this[key].stage == stage) {
+        taskList.push(this[key]);
+      }
+    }
+    // 按照次序进行
+    taskList.sort((a, b) => {
+      return a.index - b.index;
+    })
+    return async() => {
+      ctx.log(`[Start Stage] ${stage} `);
+      try {
+        await this.runTask(ctx, taskList);
+        ctx.log(`[Finish Stage] ${stage} `);
+      } catch (e) {
+        ctx.log(`[Error Stage] ${stage} `);
+        throw e;
+      }
+    }
+  }
   async run(ctx) {
     // 生成任务链数组，每个数组里是一个async Function
     let stageChain = this
       .stages
-      .map(stage => {
-        let taskList = [];
-        for (let key in this) {
-          if (this[key].stage == stage) {
-            taskList.push(this[key]);
-          }
-        }
-        // 按照次序进行
-        taskList.sort((a, b) => {
-          return a.index - b.index;
-        })
-        return async() => {
-          ctx.log(`[Start Stage] ${stage} `);
-          try {
-            await this.runTask(ctx, taskList);
-            ctx.log(`[Finish Stage] ${stage} `);
-          } catch (e) {
-            ctx.log(`[Error Stage] ${stage} `);
-            throw e;
-          }
-        }
+      .map((stage) => {
+        return this.generateStageTask(ctx, stage);
       });
     for (let stage of stageChain) {
       try {

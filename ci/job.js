@@ -3,6 +3,7 @@ import uuid from '../util/uuid';
 import WorkFlow from './workflow';
 import path from 'path';
 import os from 'os';
+import TaskManager from './taskmanager'
 export default class Job {
   constructor(workspace, workflowContent, option = {}) {
     this.id = uuid();
@@ -43,8 +44,11 @@ export default class Job {
   start() {
     this.status = 1;
   }
-  fail() {
+  fail(e) {
     this.status = -1;
+    this
+      .ctx
+      .log(e);
   }
   async run() {
     this.start();
@@ -64,7 +68,7 @@ export default class Job {
         .log(`[Success Job]`)
 
     } catch (e) {
-      this.fail();
+      this.fail(e);
       this
         .ctx
         .log(`[Error Job]`)
@@ -74,6 +78,10 @@ export default class Job {
       this
         .ctx
         .log(`作业结束，耗时：${this.duration} ms`);
+      const CleanTask = TaskManager.get('clean');
+      const clean = new CleanTask();
+      clean.name = 'clean';
+      clean.run(this.ctx);
     }
   }
 }
