@@ -25,10 +25,19 @@ export async function recieveWebHook(ctx, next) {
   console.log('接收到远端的webhook推送，推送类型为：', event);
   if (event) {
     if (event == 'push') {
-      console.log(ctx.request.body);
-      // ProjectOrm.getIdByRepositoryUrl(); const commit_msg = ctx.request.body;
-      // await Project.startJob(user_id, project_id, commit_msg, branch);
-
+      const body = ctx.request.body;
+      const ssh_url = body.repository.ssh_url;
+      const projectInfo = await ProjectOrm.getIdByRepositoryUrl(ssh_url);
+      const commit_msg;
+      try {
+        commit_msg = body.commit[0].short_message;
+      } catch (e) {
+        commit_msg = 'webhook构建';
+      }
+      const branch = body.ref;
+      const project_id = projectInfo.id;
+      const user_id = projectInfo.user_id;
+      await Project.startJob(user_id, project_id, commit_msg, branch);
     }
   }
   ctx.body = new Response(HttpCode.SUCCESS, header);
