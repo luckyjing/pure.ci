@@ -2,6 +2,7 @@ import CodingOrm from '../services/orm/coding';
 import Response from '../services/response';
 import HttpCode from '../config/httpCode';
 import {CodingOAuth} from '../services/oauth';
+import Project from '../services/projectServices';
 import {hook_url} from '../config/config';
 export async function getWebHook(ctx, next) {
   let user_name = ctx.query.userName;
@@ -19,7 +20,18 @@ export async function getWebHook(ctx, next) {
 // 接收到远端的webhook推送，启动作业
 export async function recieveWebHook(ctx, next) {
   const header = ctx.header;
-  console.log(header);
+  const event = header['X-Coding-Event'] || '';
+  console.log('接收到远端的webhook推送，推送类型为：', event);
+  if (event) {
+    if (event == 'push') {
+      const user_id = ctx.state.user.id;
+      console.log(ctx.request.body);
+      // const commit_msg = ctx.request.body;
+      await Project.startJob(user_id, project_id, commit_msg, branch);
+
+    }
+  }
+  ctx.body = 'ok';
 }
 // 增加webhook
 export async function postWebHook(ctx, next) {
