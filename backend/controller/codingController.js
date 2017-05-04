@@ -29,9 +29,8 @@ export async function recieveWebHook(ctx, next) {
       const ssh_url = body.repository.ssh_url;
       const projectInfo = await ProjectOrm.getIdByRepositoryUrl(ssh_url);
       let commit_msg;
-      console.log(body.commit);
       try {
-        commit_msg = body.commit[0].short_message;
+        commit_msg = body.commits[0].short_message;
       } catch (e) {
         commit_msg = 'webhook构建';
       }
