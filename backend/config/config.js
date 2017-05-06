@@ -17,7 +17,7 @@ let specific = {
     coding: {
       clientId: 'eb1f4fffdad9ebae384f83e1de7ba4d7',
       clientSecret: '4a67850a25c1e4c36b757da8de73fe6f420435aa',
-      redirect_uri: "http://localhost:8999/auth/coding"
+      redirect_uri: "http://localhost:8999/api/auth/coding"
     },
     app: {
       port: 8999,
@@ -42,7 +42,7 @@ let specific = {
     coding: {
       clientId: 'eb1f4fffdad9ebae384f83e1de7ba4d7',
       clientSecret: '4a67850a25c1e4c36b757da8de73fe6f420435aa',
-      redirect_uri: "http://sujing.xin/auth/coding"
+      redirect_uri: "http://sujing.xin:8000/api/auth/coding"
     },
     app: {
       port: 8000,

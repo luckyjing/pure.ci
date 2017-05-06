@@ -65,7 +65,6 @@ export async function bind(ctx, next) {
   }
   try {
     let {access_token, refresh_token, expires_in} = await CodingOAuth.fetchAccessToken(query.code);
-    // TODO: 存储到数据库里去
     let user = ctx.state.user;
     if (user.coding_bind) {
       console.log(`${user.id}绑定过coding->重新写入token`)

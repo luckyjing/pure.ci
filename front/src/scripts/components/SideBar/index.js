@@ -16,6 +16,10 @@ const route = [
     icon: 'folder',
     text: '我的项目'
   }, {
+    path: '/computer',
+    icon: 'user',
+    text: '主机管理'
+  }, {
     path: '/profile',
     icon: 'user',
     text: '用户中心'

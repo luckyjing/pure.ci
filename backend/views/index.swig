@@ -15,6 +15,7 @@
   <script src="https://cdn.bootcss.com/babel-polyfill/7.0.0-alpha.3/polyfill.min.js"></script>
   <script src="https://cdn.bootcss.com/moment.js/2.18.1/moment.min.js"></script>
   <script src="https://cdn.bootcss.com/moment.js/2.18.1/locale/zh-cn.js"></script>
+  <script src="https://cdn.bootcss.com/socket.io/1.7.3/socket.io.min.js"></script>
   {% if env == 'development' %}
   {% else %}
   <link rel="stylesheet" href="/static/index/index.css">
