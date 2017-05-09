@@ -78,7 +78,7 @@ class JobDetail extends Component {
         <div className={`detail-bar ${JobStatus[jobDetail.status].bgClass}`}>
           <Row >
             <Col span={4}>
-              <h3>作业详情</h3>
+              <h3>{JobStatus[jobDetail.status].text}</h3>
             </Col>
             <Col span={4} offset={16}>
               <Button ghost onClick={this.props.closeJobDetail}>
@@ -90,7 +90,7 @@ class JobDetail extends Component {
             lineHeight: '30px'
           }}>
             <Col span={4}>
-              {JobStatus[jobDetail.status].text}
+              镜像名称：
             </Col>
             <Col span={6}>
               分支：{jobDetail.branch}
@@ -100,6 +100,13 @@ class JobDetail extends Component {
             <Col span={6}>开始于： {fromNow(Date.parse(new Date(jobDetail.start_time)))}</Col>
           </Row>
         </div>
+        <Row>
+          <Col span={4}>
+            <h4>
+              作业流程图：
+            </h4>
+          </Col>
+        </Row>
         <Row>
           <Col span={4}>
             <h4>
