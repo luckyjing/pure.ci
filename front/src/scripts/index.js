@@ -1,3 +1,5 @@
+import '../css/index.less';
+
 import dva from 'dva';
 import models from './models';
 
@@ -17,4 +19,3 @@ app.router(require('./router'));
 
 // 5. Start
 app.start('#stage');
-import '../css/index.less';

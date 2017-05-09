@@ -6,7 +6,7 @@
     "dev": "cross-env NODE_ENV=development npm run _dev",
     "_dev": "node dev.js",
     "build": "cross-env NODE_ENV=production npm run _build",
-    "_build": "webpack",
+    "_build": "./node_modules/.bin/webpack -p --verbose --colors --profile --json > stats.json",
     "build:docker": "docker-compose  -f docker-compose.build.yml up --build"
   },
   "author": "jingxin.sjx",

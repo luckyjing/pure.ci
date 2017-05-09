@@ -1,0 +1,58 @@
+开始时间：Thu May 04 2017 14:01:04 GMT+0800 (CST)
+[Start Job]
+[Start Stage] init 
+[Start Task] init  初始化任务
+开始创建临时工作目录...
+创建成功
+===============环境变量=======================
+PROJECT_ID : B1eDTWwJ-
+JOB_ID : HJKiXSOy-
+REPOSITORY_NAME : test-ci
+REPOSITORY_URL : git@git.coding.net:luckyjing/test-ci.git
+==================================================
+[Finish Task] init
+[Start Task] clone  Git 仓库克隆
+> git clone --branch master git@git.coding.net:luckyjing/test-ci.git test-ci
+Cloning into 'test-ci'...
+
+[Finish Task] clone
+[Finish Stage] init 
+[Start Stage] test 
+[Start Task] shell0  执行Shell命令
+> echo 你好，测试阶段
+你好，测试阶段
+
+[Finish Task] shell0
+[Finish Stage] test 
+[Start Stage] build 
+[Start Task] shell1  执行Shell命令
+> echo 你好，构建阶段
+你好，构建阶段
+
+[Finish Task] shell1
+[Start Task] buildImage  构建运行型Docker镜像
+镜像名：b1edtwwj/test-ci
+当前工作目录：/Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/B1eDTWwJ-/tmp/test-ci
+> docker build -t b1edtwwj/test-ci .
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+unable to prepare context: unable to evaluate symlinks in Dockerfile path: lstat /Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/B1eDTWwJ-/tmp/test-ci/Dockerfile: no such file or directory
+
+> docker build -t b1edtwwj/test-ci .
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+unable to prepare context: unable to evaluate symlinks in Dockerfile path: lstat /Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/B1eDTWwJ-/tmp/test-ci/Dockerfile: no such file or directory
+
+[Error Task] buildImage
+[Error Stage] build 
+> docker build -t b1edtwwj/test-ci .
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+unable to prepare context: unable to evaluate symlinks in Dockerfile path: lstat /Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/B1eDTWwJ-/tmp/test-ci/Dockerfile: no such file or directory
+
+[Error Job]
+作业结束，耗时：1829 ms
+[Start Task] undefined  收尾任务
+开始清除临时工作目录...
+清除完成
+[Finish Task] undefined

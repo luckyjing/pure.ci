@@ -80,7 +80,7 @@ let config = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: [{
-          loader: 'babel-loader'
+          loader: 'babel-loader?cacheDirectory'
         }]
       }, {
         test: /\.html$/,
@@ -174,7 +174,11 @@ if (debug) {
   }));
   // 压缩
   config.plugins.push(new UglifyJsPlugin({
-    minimize: true
+    comments:false,
+    minimize: true,
+    compress:{
+      warnings:false
+    }
   }));
 }
 // 为每一个入口文件生成HTML

@@ -8,6 +8,7 @@
   <meta name="keywords" content="">
   <link href="https://cdn.bootcss.com/codemirror/5.25.2/codemirror.min.css" rel="stylesheet">
   <link href="https://cdn.bootcss.com/codemirror/5.25.2/theme/material.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/antd/2.10.0/antd.min.css">
   <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
   <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
   <script src="https://cdn.bootcss.com/redux/3.6.0/redux.min.js"></script>

@@ -2,6 +2,7 @@
 
 import compose from 'koa-compose';
 import convert from 'koa-convert';
+import compress from 'koa-compress';
 import cors from 'koa-cors';
 import Serve from 'koa-static';
 import Logger from 'koa-logger';
@@ -14,7 +15,7 @@ import passport from 'koa-passport';
 import auth from './auth';
 
 export default function (app) {
-
+  app.use(compress());
   app.keys = ['secret'];
   app.proxy = true;
   app.use(views(__dirname + '/../views', {extension: 'swig'}))
