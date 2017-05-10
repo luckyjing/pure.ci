@@ -3,6 +3,7 @@ stages:
   - test
   - build
   - deploy
+
 init:
   index: 0
   stage: init
@@ -12,13 +13,13 @@ clone:
   index: 1
   stage: init
   type: clone
-  
-shell0:
-  index: 1
+
+test:
+  index: 0
   stage: test
-  type: shell
+  type: test
   config:
-    script: echo 你好，测试阶段 
+    dockerfile: Dockerfile.test
 
 shell1:
   index: 0
@@ -27,13 +28,19 @@ shell1:
   config:
     script: echo 你好，构建阶段 
 
+buildImage:
+  index: 1
+  stage: build
+  type: buildRunningImage
+
+# pushImage:
+#   index: 2
+#   stage: build
+#   type: pushImage
+
 shell2:
   index: 0
   stage: deploy
   type: shell
   config:
     script: echo 你好，部署阶段
-clean:
-  index: 1
-  stage: deploy
-  type: clean
