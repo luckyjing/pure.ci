@@ -1,0 +1,217 @@
+开始时间：Wed May 10 2017 13:37:51 GMT+0800 (CST)
+[Start Job]
+[Start Stage] init 
+[Start Task] init  初始化任务
+开始创建临时工作目录...
+创建成功
+===============环境变量=======================
+PROJECT_ID(项目id) : Hkfli-eeW
+JOB_ID(作业id) : rywVPQxxb
+REPOSITORY_NAME(关联仓库名) : test-ci
+REPOSITORY_URL(关联仓库url) : git@git.coding.net:luckyjing/test-ci.git
+BRANCH(代码执行分支) : feature/docker
+REGISTRY(Docker镜像仓库地址) : sujing.xin:5000
+==================================================
+[Finish Task] init
+[Start Task] clone  Git 仓库克隆
+> git clone --branch feature/docker git@git.coding.net:luckyjing/test-ci.git test-ci
+Cloning into 'test-ci'...
+
+[Finish Task] clone
+[Finish Stage] init 
+[Start Stage] test 
+[Start Task] test  测试
+当前工作目录：/Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/Hkfli-eeW/tmp/test-ci
+> docker build -t test/test-ci -f Dockerfile.test .
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+Sending build context to Docker daemon 342.5 kB
+
+Step 1/7 : FROM node:7
+
+ ---> 90223b3d894e
+Step 2/7 : COPY ./package.json /app/package.json
+
+ ---> Using cache
+ ---> 00ef5c22dff3
+
+Step 3/7 : WORKDIR /app
+
+ ---> Using cache
+ ---> 9d313168d976
+Step 4/7 : RUN npm install -q  --registry=https://registry.npm.taobao.org
+
+ ---> Using cache
+ ---> 7fbb8a4691ab
+Step 5/7 : COPY . /app
+
+ ---> 5cb6bf677751
+
+Removing intermediate container 5dc6821721f6
+Step 6/7 : EXPOSE 3000
+
+ ---> Running in e080e3ebf4c4
+
+ ---> e1a50767e0fc
+
+Removing intermediate container e080e3ebf4c4
+
+Step 7/7 : CMD npm test
+
+ ---> Running in ffcd633bf76e
+
+ ---> 41a041a31d84
+
+Removing intermediate container ffcd633bf76e
+
+Successfully built 41a041a31d84
+
+> docker run --rm -i test/test-ci
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+npm
+ info it worked if it ends with ok
+npm info using
+ npm@4.2.0
+npm info using node@v7.9.0
+
+npm info lifecycle node-project@1.0.0~pretest: node-project@1.0.0
+
+npm info lifecycle node-project@1.0.0~test: node-project@1.0.0
+
+
+> node-project@1.0.0 test /app
+> ava
+
+
+ 
+ ⠋ 
+[2K[1A[2K[0G 
+ ⠙ 
+[2K[1A[2K[0G
+ 
+ ⠹ 
+[2K[1A[2K[0G 
+ ⠸ 
+[2K[1A[2K[0G 
+ ⠼ 
+[2K[1A[2K[0G 
+ ⠴ 
+[2K[1A[2K[0G 
+ ⠴ foo…
+
+  1 passed
+[2K[1A[2K[1A[2K[1A[2K[0G
+ 
+ ⠴ bar…
+
+  2 passed
+[2K[1A[2K[1A[2K[1A[2K[0G
+  2 passed
+
+
+npm info lifecycle node-project@1.0.0~posttest: node-project@1.0.0
+
+npm info ok 
+
+> docker rmi test/test-ci
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+Untagged: test/test-ci:latest
+Deleted: sha256:41a041a31d842b41dcce68a3db8f9ad7cf67d7dad10f5c67cdaa4152d6950a8c
+Deleted: sha256:e1a50767e0fc18164793b22b960d7b716a0c6a8de304d358c206e0ccba221452
+Deleted: sha256:5cb6bf6777517093ac1320560685745e5d3e2476ea0b8afa48a365889e0af75a
+Deleted: sha256:038f491ada8c58e8f69e59e2e7e2627379d955d7d2979a26f2ad708a94240465
+
+[Finish Task] test
+[Finish Stage] test 
+[Start Stage] build 
+[Start Task] shell1  执行Shell命令
+> echo 你好，构建阶段
+你好，构建阶段
+
+[Finish Task] shell1
+[Start Task] buildImage  构建运行型Docker镜像
+镜像名：sujing.xin:5000/hkflieew/test-ci
+当前工作目录：/Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/Hkfli-eeW/tmp/test-ci
+> docker build -t sujing.xin:5000/hkflieew/test-ci .
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+Sending build context to Docker daemon 342.5 kB
+
+Step 1/7 : FROM node:7
+
+ ---> 90223b3d894e
+Step 2/7 : COPY ./package.json /app/package.json
+
+ ---> Using cache
+ ---> 00ef5c22dff3
+
+Step 3/7 : WORKDIR /app
+
+ ---> Using cache
+
+ ---> 9d313168d976
+Step 4/7 : RUN npm install -q  --registry=https://registry.npm.taobao.org
+
+ ---> Using cache
+ ---> 7fbb8a4691ab
+
+Step 5/7 : COPY . /app
+
+ ---> ae30bba0f685
+
+Removing intermediate container 319acfc92a1a
+Step 6/7 : EXPOSE 3000
+
+ ---> Running in 98c759c62dfa
+
+ ---> 38bce68384f5
+
+Removing intermediate container 98c759c62dfa
+Step 7/7 : CMD npm start
+
+ ---> Running in f2cbd35ad302
+
+ ---> a604e5b04ed9
+
+Removing intermediate container f2cbd35ad302
+
+Successfully built a604e5b04ed9
+
+[Finish Task] buildImage
+[Start Task] pushImage  推送镜像
+当前工作目录：/Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/Hkfli-eeW/tmp/test-ci
+准备推送的镜像名：sujing.xin:5000/hkflieew/test-ci
+> docker tag sujing.xin:5000/hkflieew/test-ci sujing.xin:5000/hkflieew/test-ci
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+> docker push sujing.xin:5000/hkflieew/test-ci
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+The push refers to a repository [sujing.xin:5000/hkflieew/test-ci]
+
+Get https://sujing.xin:5000/v1/_ping: x509: certificate signed by unknown authority
+
+> docker push sujing.xin:5000/hkflieew/test-ci
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+The push refers to a repository [sujing.xin:5000/hkflieew/test-ci]
+
+Get https://sujing.xin:5000/v1/_ping: x509: certificate signed by unknown authority
+
+[Error Task] pushImage
+[Error Stage] build 
+> docker push sujing.xin:5000/hkflieew/test-ci
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+The push refers to a repository [sujing.xin:5000/hkflieew/test-ci]
+
+Get https://sujing.xin:5000/v1/_ping: x509: certificate signed by unknown authority
+
+[Error Job]
+作业结束，耗时：11056 ms
+[Start Task] clean  收尾任务
+开始清除临时工作目录...
+清除完成
+[Finish Task] clean

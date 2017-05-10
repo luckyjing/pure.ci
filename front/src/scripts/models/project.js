@@ -144,6 +144,7 @@ export default {
         ...state,
         jobDetail: {
           ...state.jobDetail,
+          runningStatus: null,
           ...action.payload
         }
       }

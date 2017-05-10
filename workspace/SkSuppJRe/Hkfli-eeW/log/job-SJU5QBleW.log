@@ -1,0 +1,203 @@
+开始时间：Wed May 10 2017 15:38:53 GMT+0800 (CST)
+[Start Job]
+[Start Stage] 初始化 
+[Start Task] init  初始化任务
+开始创建临时工作目录...
+创建成功
+===============环境变量=======================
+PROJECT_ID(项目id) : Hkfli-eeW
+JOB_ID(作业id) : SJU5QBleW
+REPOSITORY_NAME(关联仓库名) : test-ci
+REPOSITORY_URL(关联仓库url) : git@git.coding.net:luckyjing/test-ci.git
+BRANCH(代码执行分支) : feature/docker
+REGISTRY(Docker镜像仓库地址) : sujing.xin:5000
+==================================================
+[Finish Task] init
+[Start Task] clone  Git 仓库克隆
+> git clone --branch feature/docker git@git.coding.net:luckyjing/test-ci.git test-ci
+Cloning into 'test-ci'...
+
+[Finish Task] clone
+[Finish Stage] 初始化 
+[Start Stage] 测试 
+[Start Task] test1  执行Shell命令
+> echo 测试开始
+测试开始
+
+[Finish Task] test1
+[Start Task] test  基于Docker镜像测试
+当前工作目录：/Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/Hkfli-eeW/tmp/test-ci
+> docker build -t test/test-ci -f Dockerfile.test .
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+Sending build context to Docker daemon 342.5 kB
+
+Step 1/7 : FROM node:7
+
+ ---> 90223b3d894e
+Step 2/7 : COPY ./package.json /app/package.json
+
+ ---> Using cache
+
+ ---> 00ef5c22dff3
+Step 3/7 : WORKDIR /app
+
+ ---> Using cache
+
+ ---> 9d313168d976
+
+Step 4/7 : RUN npm install -q  --registry=https://registry.npm.taobao.org
+
+ ---> Using cache
+
+ ---> 7fbb8a4691ab
+
+Step 5/7 : COPY . /app
+
+ ---> d5838a98fc9e
+
+Removing intermediate container 85fbac51b4f4
+Step 6/7 : EXPOSE 3000
+
+ ---> Running in e993317fcf0e
+
+ ---> 09faa6c6db0a
+
+Removing intermediate container e993317fcf0e
+Step 7/7 : CMD npm test
+
+ ---> Running in efca3712cc60
+
+ ---> 40f7dd3dedde
+
+Removing intermediate container efca3712cc60
+
+Successfully built 40f7dd3dedde
+
+> docker run --rm -i test/test-ci
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+npm
+ info it worked if it ends with ok
+npm info using npm@4.2.0
+npm info using node@v7.9.0
+
+npm info lifecycle node-project@1.0.0~pretest: node-project@1.0.0
+
+npm info lifecycle
+ node-project@1.0.0~test: node-project@1.0.0
+
+
+> node-project@1.0.0 test /app
+> ava
+
+
+ 
+ ⠋ 
+[2K[1A[2K[0G
+ 
+ ⠙ 
+[2K[1A[2K[0G 
+ ⠹ 
+[2K[1A[2K[0G 
+ ⠸ 
+[2K[1A[2K[0G 
+ ⠼ 
+[2K[1A[2K[0G 
+ ⠴ 
+[2K[1A[2K[0G 
+ ⠴ foo…
+
+  1 passed
+[2K[1A[2K[1A[2K[1A[2K[0G 
+ ⠴ bar…
+
+  2 passed
+[2K[1A[2K[1A[2K[1A[2K[0G
+  2 passed
+
+
+npm info lifecycle node-project@1.0.0~posttest: node-project@1.0.0
+
+npm info ok 
+
+> docker rmi test/test-ci
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+Untagged: test/test-ci:latest
+Deleted: sha256:40f7dd3deddeb7626d4a582ed695586c42d08684217fd83a43da45acf3c06d46
+Deleted: sha256:09faa6c6db0a391d2fb0bf2d1300d5e67a51e49f9c9a9d556ad73a3afaa8c577
+Deleted: sha256:d5838a98fc9e1fa654c3295f602ad569ebbd65f28ba1a01873e1be5acf33b907
+Deleted: sha256:45374caaa91cba80ffb2b677bc9d657569e434b4ed670d91dd44b4a0739bd2bd
+
+[Finish Task] test
+[Finish Stage] 测试 
+[Start Stage] 构建 
+[Start Task] shell1  执行Shell命令
+> echo 你好，构建阶段
+你好，构建阶段
+
+[Finish Task] shell1
+[Start Task] buildImage  构建运行型Docker镜像
+镜像名：sujing.xin:5000/hkflieew/test-ci
+当前工作目录：/Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/Hkfli-eeW/tmp/test-ci
+> docker build -t sujing.xin:5000/hkflieew/test-ci .
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+Sending build context to Docker daemon 342.5 kB
+
+Step 1/7 : FROM node:7
+
+ ---> 90223b3d894e
+Step 2/7 : COPY ./package.json /app/package.json
+
+ ---> Using cache
+ ---> 00ef5c22dff3
+
+Step 3/7 : WORKDIR /app
+
+ ---> Using cache
+ ---> 9d313168d976
+
+Step 4/7 : RUN npm install -q  --registry=https://registry.npm.taobao.org
+
+ ---> Using cache
+
+ ---> 7fbb8a4691ab
+Step 5/7 : COPY . /app
+
+ ---> 411af1a97192
+
+Removing intermediate container 2fa49d85fecb
+Step 6/7 : EXPOSE 3000
+
+ ---> Running in e1ef188f84dc
+
+ ---> 978fdcb6660a
+
+Removing intermediate container e1ef188f84dc
+Step 7/7 : CMD npm start
+
+ ---> Running in 498dbb1ae34a
+
+ ---> 63e8d1e991b6
+
+Removing intermediate container 498dbb1ae34a
+
+Successfully built 63e8d1e991b6
+
+[Finish Task] buildImage
+[Finish Stage] 构建 
+[Start Stage] 部署 
+[Start Task] shell2  执行Shell命令
+> echo 你好，部署阶段
+你好，部署阶段
+
+[Finish Task] shell2
+[Finish Stage] 部署 
+[Success Job]
+作业结束，耗时：10481 ms
+[Start Task] clean  收尾任务
+开始清除临时工作目录...
+清除完成
+[Finish Task] clean

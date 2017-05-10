@@ -1,0 +1,9 @@
+开始时间：Wed May 10 2017 15:45:47 GMT+0800 (CST)
+[Start Job]
+[Start Stage] 初始化 
+[Start Task] init  初始化任务
+[Error Stage] 初始化 
+TypeError: this.cb is not a function
+[Error Job]
+作业结束，耗时：26 ms
+[Start Task] clean  收尾任务

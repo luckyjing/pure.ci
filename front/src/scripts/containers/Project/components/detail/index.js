@@ -4,6 +4,7 @@ import {JobStatus} from '../../../../constant/index';
 import {fromNow} from '../../../../utils/base';
 import {makeImageName} from '../../../../../../../util/docker';
 import CodeMirror from 'react-codemirror';
+import TimeLine from './timeline';
 import 'codemirror/mode/yaml/yaml';
 const columns = [
   {
@@ -73,7 +74,6 @@ class JobDetail extends Component {
     const {jobDetail, projectDetail} = this.props;
     const project_id = projectDetail.id;
     const duration = moment.duration(jobDetail.duration);
-
     return (
       <div>
         <div className={`detail-bar ${JobStatus[jobDetail.status].bgClass}`}>
@@ -109,6 +109,13 @@ class JobDetail extends Component {
           </Col>
         </Row>
         <Row>
+          <Col span={24}>
+            <TimeLine
+              workflow={jobDetail.workflow}
+              runningStatus={jobDetail.runningStatus}/>
+          </Col>
+        </Row>
+        <Row>
           <Col span={4}>
             <h4>
               作业日志：
@@ -131,7 +138,7 @@ class List extends Component {
     this.fetchData();
     const intervalId = setInterval(() => {
       this.fetchData();
-    }, 2000);
+    }, 1000);
     this.setState({intervalId});
   }
   componentWillUnmount() {
@@ -170,16 +177,19 @@ class WorkFlow extends Component {
   constructor() {
     super();
     this.state = {
-      workflow: ''
+      workflow: '',
+      view: ''
     }
   }
   componentDidMount() {
     this.updateCode(this.props.projectDetail.workflow);
+    this.setState({view: this.props.projectDetail.workflow})
   }
   updateCode = (workflow) => {
     this.setState({workflow})
   }
   handleSaveWorkFlow = () => {
+    this.setState({view: this.state.workflow})
     this
       .props
       .dispatch({
@@ -197,6 +207,25 @@ class WorkFlow extends Component {
     };
     return (
       <div>
+        <Row>
+          <Col span={4}>
+            <h4>
+              作业流程图预览：
+            </h4>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <TimeLine workflow={this.state.view}/>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={4}>
+            <h4>
+              持续集成流程配置：
+            </h4>
+          </Col>
+        </Row>
         <CodeMirror
           value={this.state.workflow}
           onChange={this.updateCode}

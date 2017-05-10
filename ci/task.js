@@ -50,9 +50,10 @@ export default function TaskFactory(config) {
       throw e;
     }
 
-    async run(ctx) {
+    async run(ctx, cb) {
       ctx.log('[Start Task]' + ` ${this.name}  ${this.config.taskName}`);
       this.start();
+      cb(this.getStatus());
       try {
         await this.context(ctx);
         ctx.log('[Finish Task]' + ` ${this.name}`);

@@ -10,6 +10,7 @@ import {
   message
 } from 'antd';
 import {hasErrors} from '../../../utils/base';
+import TimeLine from './detail/timeline';
 const FormItem = Form.Item;
 const Option = Select.Option;
 const formItemLayout = {

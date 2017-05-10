@@ -3,11 +3,10 @@ import path from 'path'
 import shell from '../../util/shell';
 export default {
   key : 'test',
-  taskName : '测试',
+  taskName : '基于Docker镜像测试',
   desc : '选择一个Dockerfile用来测试',
   config : {},
   async context(ctx) {
-    console.log(this.config.dockerfile);
     ctx.log(`当前工作目录：${ctx.REPOSITORY_WORKSPACE}`);
     try {
       if (!this.config.dockerfile) {

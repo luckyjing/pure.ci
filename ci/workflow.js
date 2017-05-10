@@ -65,7 +65,9 @@ export default class WorkFlow {
     });
     for (let instance of runChain) {
       try {
-        await instance.run(ctx);
+        await instance.run(ctx, (status) => {
+          this.changeTask(instance.name, {status: status});
+        });
       } catch (e) {
         throw e;
       } finally {
