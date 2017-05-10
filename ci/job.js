@@ -14,7 +14,6 @@ export default class Job {
     this.ctx = {
       log: function (content) {
         console.log(content.toString());
-
         fs.appendFileSync(Logworkspace, content + os.EOL);
       },
       WORKSPACE: workspace,

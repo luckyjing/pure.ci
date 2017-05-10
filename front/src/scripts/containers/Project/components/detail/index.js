@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Button, Table, Row, Col} from 'antd';
 import {JobStatus} from '../../../../constant/index';
 import {fromNow} from '../../../../utils/base';
+import {makeImageName} from '../../../../../../../util/docker';
 import CodeMirror from 'react-codemirror';
 import 'codemirror/mode/yaml/yaml';
 const columns = [
@@ -89,15 +90,15 @@ class JobDetail extends Component {
           <Row style={{
             lineHeight: '30px'
           }}>
-            <Col span={4}>
-              镜像名称：
+            <Col span={10}>
+              镜像名称：{makeImageName('sujing.xin:5000', projectDetail.id, projectDetail.repository_name)}
             </Col>
             <Col span={6}>
               分支：{jobDetail.branch}
             </Col>
-            <Col span={6}>耗时：{`${
+            <Col span={4}>耗时：{`${
               duration.minutes()}分${duration.seconds()}秒`}</Col>
-            <Col span={6}>开始于： {fromNow(Date.parse(new Date(jobDetail.start_time)))}</Col>
+            <Col span={4}>开始于： {fromNow(Date.parse(new Date(jobDetail.start_time)))}</Col>
           </Row>
         </div>
         <Row>

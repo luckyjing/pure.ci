@@ -1,0 +1,271 @@
+开始时间：Wed May 10 2017 12:51:08 GMT+0800 (CST)
+[Start Job]
+[Start Stage] init 
+[Start Task] init  初始化任务
+开始创建临时工作目录...
+创建成功
+===============环境变量=======================
+PROJECT_ID(项目id) : Hkfli-eeW
+JOB_ID(作业id) : S1Vr2Ggeb
+REPOSITORY_NAME(关联仓库名) : test-ci
+REPOSITORY_URL(关联仓库url) : git@git.coding.net:luckyjing/test-ci.git
+BRANCH(代码执行分支) : feature/docker
+REGISTRY(Docker镜像仓库地址) : sujing.xin:5000
+==================================================
+[Finish Task] init
+[Start Task] clone  Git 仓库克隆
+> git clone --branch feature/docker git@git.coding.net:luckyjing/test-ci.git test-ci
+Cloning into 'test-ci'...
+
+[Finish Task] clone
+[Finish Stage] init 
+[Start Stage] test 
+[Start Task] test  测试
+当前工作目录：/Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/Hkfli-eeW/tmp/test-ci
+> docker build -t test/test-ci -f Dockerfile.test .
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+Sending build context to Docker daemon   342 kB
+
+Step 1/7 : FROM node:7
+
+ ---> 90223b3d894e
+Step 2/7 : COPY ./package.json /app/package.json
+
+ ---> Using cache
+ ---> 00ef5c22dff3
+Step 3/7 : WORKDIR /app
+
+ ---> Using cache
+ ---> 9d313168d976
+Step 4/7 : RUN npm install -q  --registry=https://registry.npm.taobao.org
+
+ ---> Using cache
+ ---> 7fbb8a4691ab
+
+Step 5/7 : COPY . /app
+
+ ---> e783038be201
+
+Removing intermediate container f2392c62c338
+
+Step 6/7 : EXPOSE 3000
+
+ ---> Running in df0b82de6037
+
+ ---> 03c03a97883e
+
+Removing intermediate container df0b82de6037
+Step 7/7 : CMD npm test
+
+ ---> Running in 4b828059f8b2
+
+ ---> f0ab7cf86baa
+
+Removing intermediate container 4b828059f8b2
+
+Successfully built f0ab7cf86baa
+
+> docker run --rm -i test/test-ci
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+npm
+ info it worked if it ends with ok
+npm info using npm@4.2.0
+npm info using node@v7.9.0
+
+npm info lifecycle node-project@1.0.0~pretest: node-project@1.0.0
+
+npm info lifecycle node-project@1.0.0~test: node-project@1.0.0
+
+
+> node-project@1.0.0 test /app
+> ava
+
+
+ 
+ ⠋ 
+[2K[1A[2K[0G 
+ ⠙ 
+[2K[1A[2K[0G 
+ ⠹ 
+[2K[1A[2K[0G 
+ ⠸ 
+[2K[1A[2K[0G 
+ ⠼ 
+[2K[1A[2K[0G 
+ ⠴ 
+[2K[1A[2K[0G 
+ ⠴ foo…
+
+  1 passed
+[2K[1A[2K[1A[2K[1A[2K[0G 
+ ⠴ bar
+
+  1 passed
+  1 failed
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[0G 
+ ⠦ bar
+
+  1 passed
+  1 failed
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[0G
+  1 passed
+  1 failed
+
+  bar
+  /app/app.test.js:10
+
+    9:                           
+   10:   t.is(await bar, 'ba1r');
+   11: });                       
+
+  Difference:
+
+    "ba1r"
+
+  Test.<anonymous> (app.test.js:10:5)
+  step (app.test.js:9:191)
+
+
+npm info lifecycle node-project@1.0.0~test: Failed to exec test script
+npm ERR! Test failed.  See above for more details.
+
+> docker run --rm -i test/test-ci
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+npm
+ info it worked if it ends with ok
+npm info using npm@4.2.0
+npm info using node@v7.9.0
+
+npm info lifecycle node-project@1.0.0~pretest: node-project@1.0.0
+
+npm info lifecycle node-project@1.0.0~test: node-project@1.0.0
+
+
+> node-project@1.0.0 test /app
+> ava
+
+
+ 
+ ⠋ 
+[2K[1A[2K[0G 
+ ⠙ 
+[2K[1A[2K[0G 
+ ⠹ 
+[2K[1A[2K[0G 
+ ⠸ 
+[2K[1A[2K[0G 
+ ⠼ 
+[2K[1A[2K[0G 
+ ⠴ 
+[2K[1A[2K[0G 
+ ⠴ foo…
+
+  1 passed
+[2K[1A[2K[1A[2K[1A[2K[0G 
+ ⠴ bar
+
+  1 passed
+  1 failed
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[0G 
+ ⠦ bar
+
+  1 passed
+  1 failed
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[0G
+  1 passed
+  1 failed
+
+  bar
+  /app/app.test.js:10
+
+    9:                           
+   10:   t.is(await bar, 'ba1r');
+   11: });                       
+
+  Difference:
+
+    "ba1r"
+
+  Test.<anonymous> (app.test.js:10:5)
+  step (app.test.js:9:191)
+
+
+npm info lifecycle node-project@1.0.0~test: Failed to exec test script
+npm ERR! Test failed.  See above for more details.
+
+[Error Task] test
+[Error Stage] test 
+> docker run --rm -i test/test-ci
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+npm
+ info it worked if it ends with ok
+npm info using npm@4.2.0
+npm info using node@v7.9.0
+
+npm info lifecycle node-project@1.0.0~pretest: node-project@1.0.0
+
+npm info lifecycle node-project@1.0.0~test: node-project@1.0.0
+
+
+> node-project@1.0.0 test /app
+> ava
+
+
+ 
+ ⠋ 
+[2K[1A[2K[0G 
+ ⠙ 
+[2K[1A[2K[0G 
+ ⠹ 
+[2K[1A[2K[0G 
+ ⠸ 
+[2K[1A[2K[0G 
+ ⠼ 
+[2K[1A[2K[0G 
+ ⠴ 
+[2K[1A[2K[0G 
+ ⠴ foo…
+
+  1 passed
+[2K[1A[2K[1A[2K[1A[2K[0G 
+ ⠴ bar
+
+  1 passed
+  1 failed
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[0G 
+ ⠦ bar
+
+  1 passed
+  1 failed
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[0G
+  1 passed
+  1 failed
+
+  bar
+  /app/app.test.js:10
+
+    9:                           
+   10:   t.is(await bar, 'ba1r');
+   11: });                       
+
+  Difference:
+
+    "ba1r"
+
+  Test.<anonymous> (app.test.js:10:5)
+  step (app.test.js:9:191)
+
+
+npm info lifecycle node-project@1.0.0~test: Failed to exec test script
+npm ERR! Test failed.  See above for more details.
+
+[Error Job]
+作业结束，耗时：7748 ms
+[Start Task] clean  收尾任务
+开始清除临时工作目录...
+清除完成
+[Finish Task] clean

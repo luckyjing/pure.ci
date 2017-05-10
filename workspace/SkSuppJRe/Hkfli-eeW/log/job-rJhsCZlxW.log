@@ -1,0 +1,99 @@
+开始时间：Wed May 10 2017 11:53:08 GMT+0800 (CST)
+[Start Job]
+[Start Stage] init 
+[Start Task] init  初始化任务
+开始创建临时工作目录...
+创建成功
+===============环境变量=======================
+PROJECT_ID : Hkfli-eeW
+JOB_ID : rJhsCZlxW
+REPOSITORY_NAME : test-ci
+REPOSITORY_URL : git@git.coding.net:luckyjing/test-ci.git
+REGISTRY : sujing.xin:5000
+==================================================
+[Finish Task] init
+[Start Task] clone  Git 仓库克隆
+> git clone --branch feature/docker git@git.coding.net:luckyjing/test-ci.git test-ci
+Cloning into 'test-ci'...
+
+[Finish Task] clone
+[Finish Stage] init 
+[Start Stage] test 
+[Start Task] shell0  执行Shell命令
+> echo 你好，测试阶段
+你好，测试阶段
+
+[Finish Task] shell0
+[Finish Stage] test 
+[Start Stage] build 
+[Start Task] shell1  执行Shell命令
+> echo 你好，构建阶段
+你好，构建阶段
+
+[Finish Task] shell1
+[Start Task] buildImage  构建运行型Docker镜像
+镜像名：sujing.xin:5000/hkflieew/test-ci
+当前工作目录：/Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/Hkfli-eeW/tmp/test-ci
+> docker build -t sujing.xin:5000/hkflieew/test-ci .
+WARNING: Error loading config file:/Users/sujingxin/.docker/config.json - open /Users/sujingxin/.docker/config.json: permission denied
+
+Sending build context to Docker daemon 339.5 kB
+
+Step 1/7 : FROM node:7
+
+ ---> 90223b3d894e
+
+Step 2/7 : COPY ./package.json /app/package.json
+
+ ---> Using cache
+
+ ---> 2b2663d4db6a
+
+Step 3/7 : WORKDIR /app
+ ---> Using cache
+
+ ---> 5b414bfaa37c
+Step 4/7 : RUN npm install -q  --registry=https://registry.npm.taobao.org
+
+ ---> Using cache
+
+ ---> f3fc128a4c90
+Step 5/7 : COPY . /app
+
+ ---> 112835d76996
+
+Removing intermediate container 2f3ba41711c5
+
+Step 6/7 : EXPOSE 3000
+
+ ---> Running in 7148abe4d425
+
+ ---> d32d793e050b
+
+Removing intermediate container 7148abe4d425
+
+Step 7/7 : CMD npm start
+
+ ---> Running in 1c62998cc13d
+
+ ---> a2fe7d07ed68
+
+Removing intermediate container 1c62998cc13d
+
+Successfully built a2fe7d07ed68
+
+[Finish Task] buildImage
+[Finish Stage] build 
+[Start Stage] deploy 
+[Start Task] shell2  执行Shell命令
+> echo 你好，部署阶段
+你好，部署阶段
+
+[Finish Task] shell2
+[Finish Stage] deploy 
+[Success Job]
+作业结束，耗时：4256 ms
+[Start Task] clean  收尾任务
+开始清除临时工作目录...
+清除完成
+[Finish Task] clean

@@ -6,7 +6,7 @@ import * as file from '../../util/file';
 import Job from '../../ci/job';
 import path from 'path';
 import fs from 'fs';
-import {workspace, hook_url, deploy_key} from '../config/config';
+import {workspace, hook_url, deploy_key, registry} from '../config/config';
 const runningProjectMap = {};
 function getBaseWorkSpace(user_id) {
   return path.join(workspace, `${user_id}`);
@@ -83,7 +83,8 @@ export default class ProjectServices {
       PROJECT_ID: projectInfo.id,
       REPOSITORY_NAME: projectInfo.repository_name,
       REPOSITORY_URL: projectInfo.repository_url,
-      BRANCH: branch
+      BRANCH: branch,
+      REGISTRY: registry
     }
     // 创建新的Job
     const job = new Job(cwd, workflow, option);

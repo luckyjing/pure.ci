@@ -1,0 +1,56 @@
+开始时间：Wed May 10 2017 11:52:27 GMT+0800 (CST)
+[Start Job]
+[Start Stage] init 
+[Start Task] init  初始化任务
+开始创建临时工作目录...
+创建成功
+===============环境变量=======================
+PROJECT_ID : Hkfli-eeW
+JOB_ID : SymYAZglb
+REPOSITORY_NAME : test-ci
+REPOSITORY_URL : git@git.coding.net:luckyjing/test-ci.git
+REGISTRY : sujing.xin:5000
+==================================================
+[Finish Task] init
+[Start Task] clone  Git 仓库克隆
+> git clone --branch feature/docker git@git.coding.net:luckyjing/test-ci.git test-ci
+Cloning into 'test-ci'...
+
+[Finish Task] clone
+[Finish Stage] init 
+[Start Stage] test 
+[Start Task] shell0  执行Shell命令
+> echo 你好，测试阶段
+你好，测试阶段
+
+[Finish Task] shell0
+[Finish Stage] test 
+[Start Stage] build 
+[Start Task] shell1  执行Shell命令
+> echo 你好，构建阶段
+你好，构建阶段
+
+[Finish Task] shell1
+[Start Task] buildImage  构建运行型Docker镜像
+镜像名：sujing.xin:5000/function toLowerCase() { [native code] }/test-ci
+当前工作目录：/Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/Hkfli-eeW/tmp/test-ci
+> docker build -t sujing.xin:5000/function toLowerCase() { [native code] }/test-ci .
+invalid argument "sujing.xin:5000/function toLowerCase() { [native code] }/test-ci" for t: Error parsing reference: "sujing.xin:5000/function toLowerCase() { [native code] }/test-ci" is not a valid repository/tag: invalid reference format
+See 'docker build --help'.
+
+> docker build -t sujing.xin:5000/function toLowerCase() { [native code] }/test-ci .
+invalid argument "sujing.xin:5000/function toLowerCase() { [native code] }/test-ci" for t: Error parsing reference: "sujing.xin:5000/function toLowerCase() { [native code] }/test-ci" is not a valid repository/tag: invalid reference format
+See 'docker build --help'.
+
+[Error Task] buildImage
+[Error Stage] build 
+> docker build -t sujing.xin:5000/function toLowerCase() { [native code] }/test-ci .
+invalid argument "sujing.xin:5000/function toLowerCase() { [native code] }/test-ci" for t: Error parsing reference: "sujing.xin:5000/function toLowerCase() { [native code] }/test-ci" is not a valid repository/tag: invalid reference format
+See 'docker build --help'.
+
+[Error Job]
+作业结束，耗时：1928 ms
+[Start Task] clean  收尾任务
+开始清除临时工作目录...
+清除完成
+[Finish Task] clean

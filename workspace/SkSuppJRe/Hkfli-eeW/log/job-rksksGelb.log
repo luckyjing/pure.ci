@@ -1,0 +1,34 @@
+开始时间：Wed May 10 2017 12:45:23 GMT+0800 (CST)
+[Start Job]
+[Start Stage] init 
+[Start Task] init  初始化任务
+开始创建临时工作目录...
+创建成功
+===============环境变量=======================
+PROJECT_ID(项目id) : Hkfli-eeW
+JOB_ID(作业id) : rksksGelb
+REPOSITORY_NAME(关联仓库名) : test-ci
+REPOSITORY_URL(关联仓库url) : git@git.coding.net:luckyjing/test-ci.git
+BRANCH(代码执行分支) : feature/docker
+REGISTRY(Docker镜像仓库地址) : sujing.xin:5000
+==================================================
+[Finish Task] init
+[Start Task] clone  Git 仓库克隆
+> git clone --branch feature/docker git@git.coding.net:luckyjing/test-ci.git test-ci
+Cloning into 'test-ci'...
+
+[Finish Task] clone
+[Finish Stage] init 
+[Start Stage] test 
+[Start Task] test  测试
+当前工作目录：/Users/sujingxin/coding/daily/pure-ci/workspace/SkSuppJRe/Hkfli-eeW/tmp/test-ci
+Error: dockerfile参数不能为空
+[Error Task] test
+[Error Stage] test 
+Error: dockerfile参数不能为空
+[Error Job]
+作业结束，耗时：1123 ms
+[Start Task] clean  收尾任务
+开始清除临时工作目录...
+清除完成
+[Finish Task] clean
