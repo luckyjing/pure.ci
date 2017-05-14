@@ -22,7 +22,7 @@ const route = [
   }, {
     path: '/profile',
     icon: 'user',
-    text: '用户中心'
+    text: '代码仓库'
   }
 ]
 class SideBar extends Component {

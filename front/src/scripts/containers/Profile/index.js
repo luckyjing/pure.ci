@@ -5,7 +5,7 @@ import Toast from '../../utils/toast';
 const SubMenu = Menu.SubMenu;
 const Item = Menu.Item;
 import * as myComponents from './components/index';
-
+const Repository = myComponents.Repository;
 const route = [
   {
     key: 'BaseInfo',
@@ -46,7 +46,8 @@ class Profile extends Component {
     const Sub = myComponents[this.state.selectKey];
     return (
       <div>
-        <Row >
+        <Repository/>
+        {/*<Row >
           <Col span={4} className="material-card no-padding">
             <Menu
               mode="inline"
@@ -63,7 +64,7 @@ class Profile extends Component {
               routeInfo={route.filter(i => i.key == this.state.selectKey)[0]}
             />
           </Col>
-        </Row>
+        </Row>*/}
       </div>
     );
   }

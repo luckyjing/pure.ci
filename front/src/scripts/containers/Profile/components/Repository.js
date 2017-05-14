@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'dva';
-import { Button } from 'antd';
+import React, {Component} from 'react';
+import {connect} from 'dva';
+import {Button, Card} from 'antd';
 
 const BindingList = [
   {
@@ -16,26 +16,43 @@ const BindingList = [
 
 class Container extends Component {
   componentDidMount() {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
   }
 
   render() {
-    let { routeInfo, state } = this.props;
+    let {state} = this.props;
     return (
       <div>
-        <h1>
-          {routeInfo.text}
-        </h1>
         <ul>
           {BindingList.map(item => {
+
+            let title = item.title + '（未关联）';
+            let bindInfo = '';
+            let bindAction = '立即关联';
+            if (state[item.key]) {
+              title = item.title + '（已关联）';
+              bindAction = '重新关联';
+              bindInfo += `${state[item.key].name}`;
+            }
+            const control = <a
+              onClick={() => {
+              location.href = item.url(state.client_id, state.redirect_uri)
+            }}>关联账户</a>;
             return (
               <li key={item.key}>
-                {item.title}{state[item.key]?`已绑定(${state[item.key].name})`:''}
-                {/*关联了则显示已关联，否则显示重新关联*/}
-                <Button type="primary" onClick={() => {
-                    location.href = item.url(state.client_id, state.redirect_uri)
-                  }}>绑定账户</Button>
-                
+                <Card
+                  className="bind-card"
+                  title={title}
+                  extra={control}
+                  style={{
+                  width: 300
+                }}>
+                  <img
+                    className="bind-card-img"
+                    src="https://dn-coding-net-production-static.qbox.me/static/7a51352fa766f4176d7c4543339e0e98.png"
+                    alt=""/>
+                  <p>{bindInfo}</p>
+                </Card>
               </li>
             )
           })}
@@ -45,6 +62,4 @@ class Container extends Component {
   }
 }
 
-export default connect((state) => ({
-  state: state.user
-}))(Container);
+export default connect((state) => ({state: state.user}))(Container);
