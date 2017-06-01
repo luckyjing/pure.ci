@@ -4,6 +4,7 @@ import shell from '../../util/shell';
 import uuid from '../../util/uuid';
 import * as file from '../../util/file';
 import Job from '../../ci/job';
+import TaskManager from '../../ci/taskmanager';
 import path from 'path';
 import fs from 'fs';
 import {workspace, hook_url, deploy_key, registry} from '../config/config';
@@ -187,5 +188,11 @@ export default class ProjectServices {
     // 清空相关的Job和Project条目
     await projectOrm.deleteProject(project_id);
     console.log(`删除成功`);
+  }
+  /**
+   * 获取目前支持的任务种类列表
+   */
+  static async taskList() {
+    return TaskManager.list();
   }
 }

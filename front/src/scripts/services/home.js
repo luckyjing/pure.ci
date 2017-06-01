@@ -29,3 +29,6 @@ export async function saveWorkFlow(data) {
 export async function jobDetail(data) {
   return get(`${Prefix}/api/project/${data.project_id}/job/${data.job_id}`);
 }
+export async function getTaskList(data) {
+  return get(`${Prefix}/api/project/tasklist`);
+}

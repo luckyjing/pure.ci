@@ -97,3 +97,7 @@ export async function deleteProject(ctx, next) {
     console.log(error);
   }
 }
+export async function taskList(ctx, next) {
+  const list = await Project.taskList();
+  ctx.body = new Response(HttpCode.SUCCESS, list);
+}
