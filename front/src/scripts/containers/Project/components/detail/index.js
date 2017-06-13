@@ -203,7 +203,7 @@ class WorkFlow extends Component {
   render() {
     const options = {
       lineNumbers: true,
-      theme: 'material'
+      // theme: 'material'
     };
     return (
       <div>
