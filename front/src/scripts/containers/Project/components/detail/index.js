@@ -68,7 +68,7 @@ class JobDetail extends Component {
   render() {
     const options = {
       lineNumbers: true,
-      theme: 'material',
+      // theme: 'material',
       readOnly: true
     };
     const {jobDetail, projectDetail} = this.props;
